@@ -1,0 +1,5 @@
+export { createExampleController } from './create.controller'
+export { deleteExampleController } from './delete.controller'
+export { retrieveExampleController } from './retrieve.controller'
+export { retrieveAllExampleController } from './retrieve-all.controller'
+export { updateExampleController } from './update.controller'
