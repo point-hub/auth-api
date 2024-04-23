@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker'
 import { BaseFactory, type IDatabase } from '@point-hub/papi'
 
-import { IExampleEntity } from './interface'
+import { IApiKeyEntity } from './interface'
 import { CreateRepository } from './repositories/create.repository'
 import { CreateManyRepository } from './repositories/create-many.repository'
 
-export default class ExampleFactory extends BaseFactory<IExampleEntity> {
+export default class ApiKeyFactory extends BaseFactory<IApiKeyEntity> {
   constructor(public dbConnection: IDatabase) {
     super()
   }

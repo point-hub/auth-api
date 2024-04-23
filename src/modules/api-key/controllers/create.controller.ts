@@ -1,12 +1,12 @@
-import { objClean } from '@point-hub/express-utils'
+import { objClean, tokenGenerate, tokenSha256 } from '@point-hub/express-utils'
 import type { IController, IControllerInput } from '@point-hub/papi'
 
 import { schemaValidation } from '@/utils/validation'
 
 import { CreateRepository } from '../repositories/create.repository'
-import { CreateExampleUseCase } from '../use-cases/create.use-case'
+import { CreateApiKeyUseCase } from '../use-cases/create.use-case'
 
-export const createExampleController: IController = async (controllerInput: IControllerInput) => {
+export const createApiKeyController: IController = async (controllerInput: IControllerInput) => {
   let session
   try {
     // 1. start session for transactional
@@ -15,12 +15,14 @@ export const createExampleController: IController = async (controllerInput: ICon
     // 2. define repository
     const createRepository = new CreateRepository(controllerInput.dbConnection)
     // 3. handle business rules
-    const response = await CreateExampleUseCase.handle(
+    const response = await CreateApiKeyUseCase.handle(
       controllerInput.httpRequest.body,
       {
         cleanObject: objClean,
         createRepository,
         schemaValidation,
+        generateApiKey: tokenGenerate,
+        hashApiKey: tokenSha256,
       },
       { session },
     )

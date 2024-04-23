@@ -13,7 +13,7 @@ export interface IOptions {
   session?: unknown
 }
 
-export class DeleteExampleUseCase {
+export class DeleteApiKeyUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<IDeleteOutput> {
     // 1. validate schema
     await deps.schemaValidation(input, deleteValidation)

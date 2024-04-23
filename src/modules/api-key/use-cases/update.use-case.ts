@@ -1,6 +1,6 @@
 import type { ISchemaValidation, IUpdateOutput, IUpdateRepository } from '@point-hub/papi'
 
-import { ExampleEntity } from '../entity'
+import { ApiKeyEntity } from '../entity'
 import { updateValidation } from '../validations/update.validation'
 
 export interface IInput {
@@ -19,10 +19,10 @@ export interface IOptions {
   session?: unknown
 }
 
-export class UpdateExampleUseCase {
+export class UpdateApiKeyUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<IUpdateOutput> {
     // 1. define entity
-    const exampleEntity = new ExampleEntity({
+    const exampleEntity = new ApiKeyEntity({
       name: input.data.name,
       phone: input.data.phone,
     })

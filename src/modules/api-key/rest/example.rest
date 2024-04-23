@@ -1,7 +1,7 @@
 @baseUrl = {{$dotenv BASE_URL}}
 
 ###
-# @name createExample
+# @name createApiKey
 # @prompt name
 # @prompt phone
 POST {{baseUrl}}/v1/examples HTTP/1.1
@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ###
-# @name createManyExample
+# @name createManyApiKey
 # @prompt name1
 # @prompt phone1
 # @prompt name2
@@ -35,20 +35,20 @@ Content-Type: application/json
 ]
 
 ###
-# @name retrieveAllExample
+# @name retrieveAllApiKey
 GET {{baseUrl}}/v1/examples HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ###
-# @name retrieveExample
+# @name retrieveApiKey
 # @prompt id
 GET {{baseUrl}}/v1/examples/{{id}} HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ###
-# @name updateExample
+# @name updateApiKey
 # @prompt id
 # @prompt name
 # @prompt phone
@@ -62,7 +62,7 @@ Content-Type: application/json
 }
 
 ###
-# @name updateManyExample
+# @name updateManyApiKey
 # @prompt name
 # @prompt phone
 POST {{baseUrl}}/v1/examples/update-many HTTP/1.1
@@ -79,14 +79,14 @@ Content-Type: application/json
 }
 
 ###
-# @name deleteExample
+# @name deleteApiKey
 # @prompt id
 DELETE {{baseUrl}}/v1/examples/{{id}} HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ###
-# @name deleteManyExample
+# @name deleteManyApiKey
 # @prompt id1
 # @prompt id2
 POST {{baseUrl}}/v1/examples/delete-many HTTP/1.1
@@ -98,7 +98,7 @@ Content-Type: application/json
 }
 
 ###
-# @name createTransactionExample
+# @name createTransactionApiKey
 # @prompt name1
 # @prompt phone1
 # @prompt name2

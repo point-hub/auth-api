@@ -1,9 +1,9 @@
-import { IExampleEntity } from './interface'
+import { IApiKeyEntity } from './interface'
 
-export const collectionName = 'examples'
+export const collectionName = 'api_keys'
 
-export class ExampleEntity {
-  constructor(public data: IExampleEntity) {}
+export class ApiKeyEntity {
+  constructor(public data: IApiKeyEntity) {}
 
   public generateCreatedDate() {
     this.data.created_date = new Date()

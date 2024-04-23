@@ -1,14 +1,14 @@
 export const seeds = [
   {
-    name: 'Example 1',
+    name: 'ApiKey 1',
     created_date: new Date(),
   },
   {
-    name: 'Example 2',
+    name: 'ApiKey 2',
     created_date: new Date(),
   },
   {
-    name: 'Example 3',
+    name: 'ApiKey 3',
     created_date: new Date(),
   },
 ]

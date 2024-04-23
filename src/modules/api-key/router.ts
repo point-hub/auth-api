@@ -11,63 +11,63 @@ const makeRouter = async (routerInput: IBaseAppInput) => {
   router.post(
     '/',
     await makeController({
-      controller: controller.createExampleController,
+      controller: controller.createApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.get(
     '/',
     await makeController({
-      controller: controller.retrieveAllExampleController,
+      controller: controller.retrieveAllApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.get(
     '/:id',
     await makeController({
-      controller: controller.retrieveExampleController,
+      controller: controller.retrieveApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.patch(
     '/:id',
     await makeController({
-      controller: controller.updateExampleController,
+      controller: controller.updateApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.delete(
     '/:id',
     await makeController({
-      controller: controller.deleteExampleController,
+      controller: controller.deleteApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.post(
     '/create-many',
     await makeController({
-      controller: controller.createManyExampleController,
+      controller: controller.createManyApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.post(
     '/update-many',
     await makeController({
-      controller: controller.updateManyExampleController,
+      controller: controller.updateManyApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.post(
     '/delete-many',
     await makeController({
-      controller: controller.deleteManyExampleController,
+      controller: controller.deleteManyApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.post(
     '/transaction',
     await makeController({
-      controller: controller.transactionExampleController,
+      controller: controller.transactionApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )
