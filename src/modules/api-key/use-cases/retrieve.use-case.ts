@@ -14,7 +14,9 @@ export class RetrieveApiKeyUseCase {
     return {
       _id: response._id,
       name: response.name,
-      phone: response.phone,
+      web_restrictions: response.web_restrictions,
+      ip_address_restrictions: response.ip_address_restrictions,
+      prefix_api_key: response.prefix_api_key,
       created_date: response.created_date,
       updated_date: response.updated_date,
     }

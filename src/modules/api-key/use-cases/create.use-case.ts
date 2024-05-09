@@ -31,7 +31,7 @@ export class CreateApiKeyUseCase {
       web_restrictions: input.web_restrictions,
       ip_address_restrictions: input.ip_address_restrictions,
       prefix_api_key: apiKey.substring(0, 6),
-      hashed_api_key: hashedApiKey
+      hashed_api_key: hashedApiKey,
     })
     exampleEntity.generateCreatedDate()
     const cleanEntity = deps.cleanObject(exampleEntity.data)
