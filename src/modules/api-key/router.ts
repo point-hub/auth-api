@@ -36,38 +36,17 @@ const makeRouter = async (routerInput: IBaseAppInput) => {
       dbConnection: routerInput.dbConnection,
     }),
   )
+  router.patch(
+    '/:id/regenerate',
+    await makeController({
+      controller: controller.regenerateApiKeyController,
+      dbConnection: routerInput.dbConnection,
+    }),
+  )
   router.delete(
     '/:id',
     await makeController({
       controller: controller.deleteApiKeyController,
-      dbConnection: routerInput.dbConnection,
-    }),
-  )
-  router.post(
-    '/create-many',
-    await makeController({
-      controller: controller.createManyApiKeyController,
-      dbConnection: routerInput.dbConnection,
-    }),
-  )
-  router.post(
-    '/update-many',
-    await makeController({
-      controller: controller.updateManyApiKeyController,
-      dbConnection: routerInput.dbConnection,
-    }),
-  )
-  router.post(
-    '/delete-many',
-    await makeController({
-      controller: controller.deleteManyApiKeyController,
-      dbConnection: routerInput.dbConnection,
-    }),
-  )
-  router.post(
-    '/transaction',
-    await makeController({
-      controller: controller.transactionApiKeyController,
       dbConnection: routerInput.dbConnection,
     }),
   )

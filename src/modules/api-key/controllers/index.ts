@@ -1,5 +1,6 @@
 export { createApiKeyController } from './create.controller'
 export { deleteApiKeyController } from './delete.controller'
+export { regenerateApiKeyController } from './regenerate.controller'
 export { retrieveApiKeyController } from './retrieve.controller'
 export { retrieveAllApiKeyController } from './retrieve-all.controller'
 export { updateApiKeyController } from './update.controller'

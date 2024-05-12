@@ -11,10 +11,8 @@ export class RetrieveAllRepository implements IAggregateRepository {
   async handle(query: IQuery, options?: unknown): Promise<IAggregateOutput> {
     const pipeline: IPipeline[] = []
 
-    // filter keys using and logic
-    const filters = []
-    // filter all key using or logic
-    const filterAll = []
+    const filters = [] // filter keys using "and" logic
+    const filterAll = [] // filter keys using "or" logic
 
     if (query.filter?.search) {
       filterAll.push({ name: { $regex: query.filter?.search, $options: 'i' } })
