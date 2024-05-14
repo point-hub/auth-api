@@ -31,6 +31,8 @@ export class RegenerateApiKeyUseCase {
     return {
       matched_count: response.matched_count,
       modified_count: response.modified_count,
+      api_key: apiKey,
+      prefix_api_key: apiKey.substring(0, 6),
     }
   }
 }

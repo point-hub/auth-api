@@ -32,6 +32,7 @@ export const createApiKeyController: IController = async (controllerInput: ICont
       status: 201,
       json: {
         inserted_id: response.inserted_id,
+        api_key: response.api_key,
       },
     }
   } catch (error) {

@@ -13,7 +13,6 @@ export const regenerateApiKeyController: IController = async (controllerInput: I
     // 2. define repository
     const regenerateRepository = new RegenerateRepository(controllerInput.dbConnection)
     // 3. handle business rules
-    console.log(controllerInput.httpRequest)
     const response = await RegenerateApiKeyUseCase.handle(
       { _id: controllerInput.httpRequest.params.id },
       {
@@ -30,6 +29,8 @@ export const regenerateApiKeyController: IController = async (controllerInput: I
       json: {
         matched_count: response.matched_count,
         modified_count: response.modified_count,
+        api_key: response.api_key,
+        prefix_api_key: response.prefix_api_key,
       },
     }
   } catch (error) {
