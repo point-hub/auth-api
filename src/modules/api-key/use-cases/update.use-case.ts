@@ -7,7 +7,8 @@ export interface IInput {
   _id: string
   data: {
     name?: string
-    phone?: string
+    web_restrictions?: string[]
+    ip_address_restrictions?: string[]
   }
 }
 export interface IDeps {
@@ -21,15 +22,16 @@ export interface IOptions {
 
 export class UpdateApiKeyUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<IUpdateOutput> {
-    // 1. define entity
+    // 1. validate schema
+    await deps.schemaValidation(input, updateValidation)
+    // 2. define entity
     const exampleEntity = new ApiKeyEntity({
       name: input.data.name,
-      phone: input.data.phone,
+      web_restrictions: input.data.web_restrictions,
+      ip_address_restrictions: input.data.ip_address_restrictions,
     })
     exampleEntity.generateUpdatedDate()
     const cleanEntity = deps.cleanObject(exampleEntity.data)
-    // 2. validate schema
-    await deps.schemaValidation(cleanEntity, updateValidation)
     // 3. database operation
     const response = await deps.updateRepository.handle(input._id, cleanEntity, options)
     return {

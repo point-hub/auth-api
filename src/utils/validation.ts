@@ -9,6 +9,6 @@ registerValidationPassword()
 export const schemaValidation: ISchemaValidation = async (document: IDocument, schema: IDocument) => {
   const validation = new Validatorjs(document, schema)
   if (validation.fails()) {
-    throw new BaseErrorHandler.ApiError(422, undefined, validation.errors.errors)
+    throw new BaseErrorHandler.ApiError(422, { errors: validation.errors.errors })
   }
 }
