@@ -20,8 +20,9 @@ export class RegenerateApiKeyUseCase {
     // 1. define entity
     const apiKey = deps.generateApiKey()
     const hashedApiKey = deps.hashApiKey(apiKey)
+    const prefixApiKey = apiKey.substring(0, 6)
     const apiKeyEntity = new ApiKeyEntity({
-      prefix_api_key: apiKey.substring(0, 6),
+      prefix_api_key: prefixApiKey,
       hashed_api_key: hashedApiKey,
     })
     apiKeyEntity.generateUpdatedDate()
@@ -32,7 +33,7 @@ export class RegenerateApiKeyUseCase {
       matched_count: response.matched_count,
       modified_count: response.modified_count,
       api_key: apiKey,
-      prefix_api_key: apiKey.substring(0, 6),
+      prefix_api_key: prefixApiKey,
     }
   }
 }
