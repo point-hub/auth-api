@@ -1,0 +1,6 @@
+export { createOAuth2Controller } from './create.controller'
+export { deleteOAuth2Controller } from './delete.controller'
+export { regenerateOAuth2Controller } from './regenerate.controller'
+export { retrieveOAuth2Controller } from './retrieve.controller'
+export { retrieveAllOAuth2Controller } from './retrieve-all.controller'
+export { updateOAuth2Controller } from './update.controller'
