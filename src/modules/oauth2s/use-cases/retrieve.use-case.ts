@@ -14,9 +14,11 @@ export class RetrieveOAuth2UseCase {
     return {
       _id: response._id,
       name: response.name,
-      web_restrictions: response.web_restrictions,
-      ip_address_restrictions: response.ip_address_restrictions,
-      prefix_api_key: response.prefix_api_key,
+      authorized_urls: response.authorized_urls,
+      redirect_urls: response.redirect_urls,
+      client_id: response.client_id,
+      client_secret: response.client_secret,
+      prefix_client_secret: response.prefix_client_secret,
       created_date: response.created_date,
       updated_date: response.updated_date,
     }

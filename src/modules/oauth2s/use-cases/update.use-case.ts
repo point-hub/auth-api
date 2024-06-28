@@ -7,8 +7,8 @@ export interface IInput {
   _id: string
   data: {
     name?: string
-    web_restrictions?: string[]
-    ip_address_restrictions?: string[]
+    authorized_urls?: string[]
+    redirect_urls?: string[]
   }
 }
 export interface IDeps {
@@ -27,8 +27,8 @@ export class UpdateOAuth2UseCase {
     // 2. define entity
     const exampleEntity = new OAuth2Entity({
       name: input.data.name,
-      web_restrictions: input.data.web_restrictions,
-      ip_address_restrictions: input.data.ip_address_restrictions,
+      authorized_urls: input.data.authorized_urls,
+      redirect_urls: input.data.redirect_urls,
     })
     exampleEntity.generateUpdatedDate()
     const cleanEntity = deps.cleanObject(exampleEntity.data)

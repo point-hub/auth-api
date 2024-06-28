@@ -5,6 +5,7 @@ import { schemaValidation } from '@/utils/validation'
 
 import { CreateRepository } from '../repositories/create.repository'
 import { CreateOAuth2UseCase } from '../use-cases/create.use-case'
+import { generateClientId } from '../utils/generate-client-id'
 
 export const createOAuth2Controller: IController = async (controllerInput: IControllerInput) => {
   let session
@@ -21,8 +22,9 @@ export const createOAuth2Controller: IController = async (controllerInput: ICont
         cleanObject: objClean,
         createRepository,
         schemaValidation,
-        generateOAuth2: tokenGenerate,
-        hashOAuth2: tokenSha256,
+        generateClientId,
+        generateClientSecret: tokenGenerate,
+        hashClientSecret: tokenSha256,
       },
       { session },
     )
@@ -32,7 +34,8 @@ export const createOAuth2Controller: IController = async (controllerInput: ICont
       status: 201,
       json: {
         inserted_id: response.inserted_id,
-        api_key: response.api_key,
+        client_id: response.client_id,
+        client_secret: response.client_secret,
       },
     }
   } catch (error) {

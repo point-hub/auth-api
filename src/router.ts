@@ -1,12 +1,12 @@
 import express, { Express } from 'express'
 
 import { IBaseAppInput } from './app'
-import apiKeyRouter from './modules/api-key/router'
-import applicationRouter from './modules/application/router'
+import apiKeyRouter from './modules/api-keys/router'
+import applicationRouter from './modules/applications/router'
 import oauthClientRouter from './modules/oauth-client/router'
-import oauth2Router from './modules/oauth2/router'
-import userRouter from './modules/user/router'
-import authRouter from './modules/user/router-auth'
+import oauth2Router from './modules/oauth2s/router'
+import userRouter from './modules/users/router'
+import authRouter from './modules/users/router-auth'
 
 export default async function (baseRouterInput: IBaseAppInput) {
   const app: Express = express()

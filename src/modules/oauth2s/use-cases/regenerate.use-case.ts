@@ -19,11 +19,11 @@ export class RegenerateOAuth2UseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<IUpdateOutput> {
     // 1. define entity
     const oAuth2 = deps.generateOAuth2()
-    const hashedOAuth2 = deps.hashOAuth2(oAuth2)
-    const prefixOAuth2 = oAuth2.substring(0, 6)
+    const clientSecret = deps.hashOAuth2(oAuth2)
+    const prefixClientSecret = oAuth2.substring(0, 6)
     const oAuth2Entity = new OAuth2Entity({
-      prefix_api_key: prefixOAuth2,
-      hashed_api_key: hashedOAuth2,
+      prefix_client_secret: prefixClientSecret,
+      client_secret: clientSecret,
     })
     oAuth2Entity.generateUpdatedDate()
     const cleanEntity = deps.cleanObject(oAuth2Entity.data)
@@ -32,8 +32,8 @@ export class RegenerateOAuth2UseCase {
     return {
       matched_count: response.matched_count,
       modified_count: response.modified_count,
-      api_key: oAuth2,
-      prefix_api_key: prefixOAuth2,
+      client_secret: clientSecret,
+      prefix_client_secret: prefixClientSecret,
     }
   }
 }
