@@ -23,9 +23,10 @@ export const retrieveOAuth2Controller: IController = async (controllerInput: ICo
       json: {
         _id: response._id,
         name: response.name,
-        web_restrictions: response.web_restrictions,
         client_id: response.client_id,
-        client_secret: response.client_secret,
+        prefix_client_secret: response.prefix_client_secret,
+        authorized_urls: response.authorized_urls,
+        redirect_urls: response.redirect_urls,
         created_date: response.created_date,
         updated_date: response.updated_date,
       },

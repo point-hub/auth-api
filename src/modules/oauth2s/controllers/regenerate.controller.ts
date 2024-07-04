@@ -2,7 +2,7 @@ import { objClean, tokenGenerate, tokenSha256 } from '@point-hub/express-utils'
 import type { IController, IControllerInput } from '@point-hub/papi'
 
 import { RegenerateRepository } from '../repositories/regenerate.repository'
-import { RegenerateOAuth2UseCase } from '../use-cases/regenerate.use-case'
+import { RegenerateClientSecretUseCase } from '../use-cases/regenerate.use-case'
 
 export const regenerateOAuth2Controller: IController = async (controllerInput: IControllerInput) => {
   let session
@@ -13,13 +13,13 @@ export const regenerateOAuth2Controller: IController = async (controllerInput: I
     // 2. define repository
     const regenerateRepository = new RegenerateRepository(controllerInput.dbConnection)
     // 3. handle business rules
-    const response = await RegenerateOAuth2UseCase.handle(
+    const response = await RegenerateClientSecretUseCase.handle(
       { _id: controllerInput.httpRequest.params.id },
       {
         cleanObject: objClean,
         regenerateRepository,
-        generateOAuth2: tokenGenerate,
-        hashOAuth2: tokenSha256,
+        generateClientSecret: tokenGenerate,
+        hashClientSecret: tokenSha256,
       },
     )
     await session.commitTransaction()
@@ -29,8 +29,8 @@ export const regenerateOAuth2Controller: IController = async (controllerInput: I
       json: {
         matched_count: response.matched_count,
         modified_count: response.modified_count,
-        api_key: response.api_key,
-        prefix_api_key: response.prefix_api_key,
+        client_secret: response.client_secret,
+        prefix_client_secret: response.prefix_client_secret,
       },
     }
   } catch (error) {

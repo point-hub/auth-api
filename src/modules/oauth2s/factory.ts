@@ -13,7 +13,6 @@ export default class OAuth2Factory extends BaseFactory<IOAuth2Entity> {
   definition() {
     return {
       name: faker.person.fullName(),
-      phone: faker.phone.number(),
       created_date: new Date(),
     }
   }

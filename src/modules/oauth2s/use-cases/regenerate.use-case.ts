@@ -8,18 +8,18 @@ export interface IInput {
 export interface IDeps {
   cleanObject(object: object): object
   regenerateRepository: IUpdateRepository
-  generateOAuth2(): string
-  hashOAuth2(string: string): string
+  generateClientSecret(): string
+  hashClientSecret(string: string): string
 }
 export interface IOptions {
   session?: unknown
 }
 
-export class RegenerateOAuth2UseCase {
+export class RegenerateClientSecretUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<IUpdateOutput> {
     // 1. define entity
-    const oAuth2 = deps.generateOAuth2()
-    const clientSecret = deps.hashOAuth2(oAuth2)
+    const oAuth2 = deps.generateClientSecret()
+    const clientSecret = deps.hashClientSecret(oAuth2)
     const prefixClientSecret = oAuth2.substring(0, 6)
     const oAuth2Entity = new OAuth2Entity({
       prefix_client_secret: prefixClientSecret,

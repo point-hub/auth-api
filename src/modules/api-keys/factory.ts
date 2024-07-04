@@ -13,7 +13,6 @@ export default class ApiKeyFactory extends BaseFactory<IApiKeyEntity> {
   definition() {
     return {
       name: faker.person.fullName(),
-      phone: faker.phone.number(),
       created_date: new Date(),
     }
   }
