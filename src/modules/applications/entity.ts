@@ -1,9 +1,9 @@
-import { IExampleEntity } from './interface'
+import { IApplicationEntity } from './interface'
 
-export const collectionName = 'examples'
+export const collectionName = 'applications'
 
-export class ExampleEntity {
-  constructor(public data: IExampleEntity) {}
+export class ApplicationEntity {
+  constructor(public data: IApplicationEntity) {}
 
   public generateCreatedDate() {
     this.data.created_date = new Date()

@@ -2,9 +2,10 @@ export interface IApplicationEntity {
   _id?: string
   name?: string
   logo?: string
+  homepage_link?: string
   privacy_link?: string
   terms_link?: string
-  authorized_domain?: string[]
+  authorized_domains?: string[]
   developer_email?: string
   support_email?: string
   created_by?: string

@@ -1,6 +1,14 @@
 import pkg from 'jsonwebtoken'
 
 import authConfig from '@/config/auth'
+
+export interface IDecodedToken {
+  _id: string
+  username: string
+  name: string
+  email: string
+}
+
 const { sign, verify } = pkg
 
 export const tokenType = 'Bearer'

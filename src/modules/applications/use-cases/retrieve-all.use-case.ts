@@ -8,7 +8,7 @@ export interface IDeps {
 }
 export interface IOptions {}
 
-export class RetrieveAllExampleUseCase {
+export class RetrieveAllApplicationUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<IRetrieveAllOutput> {
     const response = await deps.retrieveAllRepository.handle(input.query, options)
     return {

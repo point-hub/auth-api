@@ -3,9 +3,9 @@ import type { IController, IControllerInput } from '@point-hub/papi'
 import { schemaValidation } from '@/utils/validation'
 
 import { DeleteRepository } from '../repositories/delete.repository'
-import { DeleteExampleUseCase } from '../use-cases/delete.use-case'
+import { DeleteApplicationUseCase } from '../use-cases/delete.use-case'
 
-export const deleteExampleController: IController = async (controllerInput: IControllerInput) => {
+export const deleteApplicationController: IController = async (controllerInput: IControllerInput) => {
   let session
   try {
     // 1. start session for transactional
@@ -14,7 +14,7 @@ export const deleteExampleController: IController = async (controllerInput: ICon
     // 2. define repository
     const deleteRepository = new DeleteRepository(controllerInput.dbConnection)
     // 3. handle business logic
-    const response = await DeleteExampleUseCase.handle(
+    const response = await DeleteApplicationUseCase.handle(
       { _id: controllerInput.httpRequest.params.id },
       { schemaValidation, deleteRepository },
       { session },

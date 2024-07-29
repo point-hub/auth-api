@@ -1,14 +1,14 @@
 export const seeds = [
   {
-    name: 'Example 1',
+    name: 'Application 1',
     created_date: new Date(),
   },
   {
-    name: 'Example 2',
+    name: 'Application 2',
     created_date: new Date(),
   },
   {
-    name: 'Example 3',
+    name: 'Application 3',
     created_date: new Date(),
   },
 ]

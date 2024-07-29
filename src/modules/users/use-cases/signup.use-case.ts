@@ -13,6 +13,8 @@ export interface IInput {
 }
 export interface IDeps {
   signupRepository: ICreateRepository
+  createOrganizationRepository: ICreateRepository
+  createProjectRepository: ICreateRepository
   cleanObject(object: object): object
   schemaValidation: ISchemaValidation
   hashPassword(password: string): Promise<string>
@@ -42,9 +44,21 @@ export class SignupUseCase {
     userEntity.generateCreatedDate()
     const cleanEntity = deps.cleanObject(userEntity.data)
     // 3. database operation
-    const response = await deps.signupRepository.handle(cleanEntity, options)
+    console.log(1)
+    const responseSignup = await deps.signupRepository.handle(cleanEntity, options)
+    console.log(2, responseSignup.inserted_id)
+    const responseOrganization = await deps.createOrganizationRepository.handle({
+      name: 'My Organization',
+      owner_id: responseSignup.inserted_id,
+    })
+    console.log(3)
+    await deps.createProjectRepository.handle({
+      name: 'My Team',
+      organization_id: responseOrganization.inserted_id,
+    })
+    console.log(4)
     // 4. send welcome email
-    const compiledTemplate = await renderHbsTemplate('user/emails/email-verification.hbs', {
+    const compiledTemplate = await renderHbsTemplate('users/emails/email-verification.hbs', {
       name: userEntity.data.name,
       linkVerification: linkVerification,
       codeVerification: codeVerification,
@@ -52,7 +66,7 @@ export class SignupUseCase {
     sendMail(compiledTemplate, userEntity.data.email as string, 'Welcome to Pointhub')
     // 5. return response
     return {
-      inserted_id: response.inserted_id,
+      inserted_id: responseSignup.inserted_id,
     }
   }
 }

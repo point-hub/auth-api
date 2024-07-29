@@ -22,7 +22,7 @@ export const schema: ISchema[] = [
       properties: {
         name: {
           bsonType: 'string',
-          description: 'The name for the example',
+          description: 'The name for the application',
         },
       },
     },

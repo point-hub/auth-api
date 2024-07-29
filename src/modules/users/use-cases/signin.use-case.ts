@@ -40,6 +40,7 @@ export class SigninUseCase {
       { filter: { username: userInput.data.trimmed_username } },
       options,
     )
+
     // err.1. return error username is invalid
     if (users.data.length === 0) {
       deps.throwApiError(422, undefined, {
@@ -61,6 +62,7 @@ export class SigninUseCase {
         username: ['email is not verified'],
       })
     }
+    console.log(31, user)
     // 4. generate access token
     const accessToken = deps.generateAccessToken(user.data._id as string)
     const refreshToken = deps.generateRefreshToken(user.data._id as string)
@@ -69,7 +71,7 @@ export class SigninUseCase {
     date.setDate(date.getDate() + 60)
     const cookies = [
       {
-        name: 'P_TOKEN',
+        name: 'POINTHUB_ACCESS',
         val: accessToken,
         options: {
           secure: true,

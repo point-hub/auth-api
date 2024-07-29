@@ -1,3 +1,3 @@
 export const createManyValidation = {
-  'examples.*.name': ['required', 'string'],
+  'applications.*.name': ['required', 'string'],
 }

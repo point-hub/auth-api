@@ -20,6 +20,7 @@ export const googleAuthCallbackController: IController = async (controllerInput:
     const tokens = await googleAuth.getToken(qs.get('code') as string)
     const tokenInfo = await googleAuth.oAuth2Client.getTokenInfo(tokens.tokens.access_token as string)
     const userInfo = await googleAuth.userInfo()
+    console.log(userInfo)
 
     await session.commitTransaction()
     // 4. return response to client

@@ -1,6 +1,6 @@
 import type { ISchemaValidation, IUpdateOutput, IUpdateRepository } from '@point-hub/papi'
 
-import { ExampleEntity } from '../entity'
+import { ApplicationEntity } from '../entity'
 import { updateValidation } from '../validations/update.validation'
 
 export interface IInput {
@@ -19,15 +19,14 @@ export interface IOptions {
   session?: unknown
 }
 
-export class UpdateExampleUseCase {
+export class UpdateApplicationUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<IUpdateOutput> {
     // 1. define entity
-    const exampleEntity = new ExampleEntity({
+    const applicationEntity = new ApplicationEntity({
       name: input.data.name,
-      phone: input.data.phone,
     })
-    exampleEntity.generateUpdatedDate()
-    const cleanEntity = deps.cleanObject(exampleEntity.data)
+    applicationEntity.generateUpdatedDate()
+    const cleanEntity = deps.cleanObject(applicationEntity.data)
     // 2. validate schema
     await deps.schemaValidation(cleanEntity, updateValidation)
     // 3. database operation

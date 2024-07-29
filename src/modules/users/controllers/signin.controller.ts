@@ -38,7 +38,7 @@ export const signinController: IController = async (controllerInput: IController
       status: 200,
       cookies: [
         {
-          name: 'P_TOKEN',
+          name: 'POINTHUB_ACCESS',
           val: response.tokens.access_token,
           options: {
             secure: true,

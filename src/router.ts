@@ -5,8 +5,11 @@ import apiKeyRouter from './modules/api-keys/router'
 import applicationRouter from './modules/applications/router'
 import oauthClientRouter from './modules/oauth-client/router'
 import oauth2Router from './modules/oauth2s/router'
+import organizationRouter from './modules/organizations/router'
+import projectRouter from './modules/projects/router'
 import userRouter from './modules/users/router'
 import authRouter from './modules/users/router-auth'
+import oAuth2Router from './modules/users/router-oauth2'
 
 export default async function (baseRouterInput: IBaseAppInput) {
   const app: Express = express()
@@ -17,6 +20,8 @@ export default async function (baseRouterInput: IBaseAppInput) {
    */
   app.use('/v1/users', await userRouter(baseRouterInput))
   app.use('/v1/auth', await authRouter(baseRouterInput))
+  app.use('/v1/organizations', await organizationRouter(baseRouterInput))
+  app.use('/v1/projects', await projectRouter(baseRouterInput))
   app.use('/v1/oauth-clients', await oauthClientRouter(baseRouterInput))
   app.use('/v1/api-keys', await apiKeyRouter(baseRouterInput))
   app.use('/v1/oauth2s', await oauth2Router(baseRouterInput))

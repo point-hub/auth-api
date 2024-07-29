@@ -1,10 +1,10 @@
 @baseUrl = {{$dotenv BASE_URL}}
 
 ###
-# @name createExample
+# @name createApplication
 # @prompt name
 # @prompt phone
-POST {{baseUrl}}/v1/examples HTTP/1.1
+POST {{baseUrl}}/v1/applications HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
@@ -14,12 +14,12 @@ Content-Type: application/json
 }
 
 ###
-# @name createManyExample
+# @name createManyApplication
 # @prompt name1
 # @prompt phone1
 # @prompt name2
 # @prompt phone2
-POST {{baseUrl}}/v1/examples/create-many HTTP/1.1
+POST {{baseUrl}}/v1/applications/create-many HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
@@ -35,24 +35,24 @@ Content-Type: application/json
 ]
 
 ###
-# @name retrieveAllExample
-GET {{baseUrl}}/v1/examples HTTP/1.1
+# @name retrieveAllApplication
+GET {{baseUrl}}/v1/applications HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ###
-# @name retrieveExample
+# @name retrieveApplication
 # @prompt id
-GET {{baseUrl}}/v1/examples/{{id}} HTTP/1.1
+GET {{baseUrl}}/v1/applications/{{id}} HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ###
-# @name updateExample
+# @name updateApplication
 # @prompt id
 # @prompt name
 # @prompt phone
-PATCH {{baseUrl}}/v1/examples/{{id}} HTTP/1.1
+PATCH {{baseUrl}}/v1/applications/{{id}} HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
@@ -62,10 +62,10 @@ Content-Type: application/json
 }
 
 ###
-# @name updateManyExample
+# @name updateManyApplication
 # @prompt name
 # @prompt phone
-POST {{baseUrl}}/v1/examples/update-many HTTP/1.1
+POST {{baseUrl}}/v1/applications/update-many HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
@@ -79,17 +79,17 @@ Content-Type: application/json
 }
 
 ###
-# @name deleteExample
+# @name deleteApplication
 # @prompt id
-DELETE {{baseUrl}}/v1/examples/{{id}} HTTP/1.1
+DELETE {{baseUrl}}/v1/applications/{{id}} HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ###
-# @name deleteManyExample
+# @name deleteManyApplication
 # @prompt id1
 # @prompt id2
-POST {{baseUrl}}/v1/examples/delete-many HTTP/1.1
+POST {{baseUrl}}/v1/applications/delete-many HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
@@ -98,12 +98,12 @@ Content-Type: application/json
 }
 
 ###
-# @name createTransactionExample
+# @name createTransactionApplication
 # @prompt name1
 # @prompt phone1
 # @prompt name2
 # @prompt phone2
-POST {{baseUrl}}/v1/examples/transaction HTTP/1.1
+POST {{baseUrl}}/v1/applications/transaction HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 

@@ -4,9 +4,9 @@ import type { IController, IControllerInput } from '@point-hub/papi'
 import { schemaValidation } from '@/utils/validation'
 
 import { UpdateRepository } from '../repositories/update.repository'
-import { UpdateExampleUseCase } from '../use-cases/update.use-case'
+import { UpdateApplicationUseCase } from '../use-cases/update.use-case'
 
-export const updateExampleController: IController = async (controllerInput: IControllerInput) => {
+export const updateApplicationController: IController = async (controllerInput: IControllerInput) => {
   let session
   try {
     // 1. start session for transactional
@@ -15,7 +15,7 @@ export const updateExampleController: IController = async (controllerInput: ICon
     // 2. define repository
     const updateRepository = new UpdateRepository(controllerInput.dbConnection)
     // 3. handle business rules
-    const response = await UpdateExampleUseCase.handle(
+    const response = await UpdateApplicationUseCase.handle(
       {
         _id: controllerInput.httpRequest.params.id,
         data: controllerInput.httpRequest.body,

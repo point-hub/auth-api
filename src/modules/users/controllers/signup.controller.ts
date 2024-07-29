@@ -1,6 +1,8 @@
 import { objClean, tokenGenerate } from '@point-hub/express-utils'
 import type { IController, IControllerInput } from '@point-hub/papi'
 
+import { CreateRepository as CreateOrganizationRepository } from '@/modules/organizations/repositories/create.repository'
+import { CreateRepository as CreateProjectRepository } from '@/modules/projects/repositories/create.repository'
 import { renderHbsTemplate, sendMail } from '@/utils/email'
 import { schemaValidation } from '@/utils/validation'
 
@@ -16,11 +18,15 @@ export const signupController: IController = async (controllerInput: IController
     session.startTransaction()
     // 2. define repository
     const signupRepository = new SignupRepository(controllerInput.dbConnection)
+    const createOrganizationRepository = new CreateOrganizationRepository(controllerInput.dbConnection)
+    const createProjectRepository = new CreateProjectRepository(controllerInput.dbConnection)
     // 3. handle business rules
     const responseCreate = await SignupUseCase.handle(
       controllerInput.httpRequest.body,
       {
         signupRepository,
+        createOrganizationRepository,
+        createProjectRepository,
         cleanObject: objClean,
         schemaValidation,
         hashPassword: Bun.password.hash,

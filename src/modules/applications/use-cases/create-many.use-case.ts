@@ -1,10 +1,10 @@
 import type { ICreateManyOutput, ICreateManyRepository, ISchemaValidation } from '@point-hub/papi'
 
-import { ExampleEntity } from '../entity'
+import { ApplicationEntity } from '../entity'
 import { createManyValidation } from '../validations/create-many.validation'
 
 export interface IInput {
-  examples: {
+  applications: {
     name?: string
     phone?: string
   }[]
@@ -18,18 +18,18 @@ export interface IOptions {
   session?: unknown
 }
 
-export class CreateManyExampleUseCase {
+export class CreateManyApplicationUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<ICreateManyOutput> {
     const entities = []
-    for (const document of input.examples) {
-      const exampleEntity = new ExampleEntity({
+    for (const document of input.applications) {
+      const applicationEntity = new ApplicationEntity({
         name: document.name,
         phone: document.phone,
       })
-      exampleEntity.generateCreatedDate()
-      entities.push(deps.cleanObject(exampleEntity.data))
+      applicationEntity.generateCreatedDate()
+      entities.push(deps.cleanObject(applicationEntity.data))
     }
-    await deps.schemaValidation({ examples: entities }, createManyValidation)
+    await deps.schemaValidation({ applications: entities }, createManyValidation)
     const response = await deps.createManyRepository.handle(entities, options)
     return {
       inserted_ids: response.inserted_ids,

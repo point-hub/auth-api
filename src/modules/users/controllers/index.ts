@@ -7,3 +7,4 @@ export { retrieveExistingUsernameController } from './retrieve-existing-username
 export { signinController } from './signin.controller'
 export { signupController } from './signup.controller'
 export { verifyEmailController } from './verify-email.controller'
+export { verifyTokenController } from './verify-token.controller'
