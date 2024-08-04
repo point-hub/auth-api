@@ -6,6 +6,7 @@ import { CreateRepository as CreateProjectRepository } from '@/modules/projects/
 import { renderHbsTemplate, sendMail } from '@/utils/email'
 import { schemaValidation } from '@/utils/validation'
 
+import { RetrieveRepository } from '../repositories/retrieve.repository'
 import { SignupRepository } from '../repositories/signup.repository'
 import { SignupUseCase } from '../use-cases/signup.use-case'
 import { generateVerificationLink } from '../utils/generate-verification-link'
@@ -18,13 +19,18 @@ export const signupController: IController = async (controllerInput: IController
     session.startTransaction()
     // 2. define repository
     const signupRepository = new SignupRepository(controllerInput.dbConnection)
+    const retrieveRepository = new RetrieveRepository(controllerInput.dbConnection)
     const createOrganizationRepository = new CreateOrganizationRepository(controllerInput.dbConnection)
     const createProjectRepository = new CreateProjectRepository(controllerInput.dbConnection)
     // 3. handle business rules
     const responseCreate = await SignupUseCase.handle(
-      controllerInput.httpRequest.body,
+      {
+        pointhubSecret: controllerInput.httpRequest.headers['Pointhub-Secret'],
+        data: controllerInput.httpRequest.body,
+      },
       {
         signupRepository,
+        retrieveRepository,
         createOrganizationRepository,
         createProjectRepository,
         cleanObject: objClean,
@@ -44,6 +50,11 @@ export const signupController: IController = async (controllerInput: IController
       status: 201,
       json: {
         inserted_id: responseCreate.inserted_id,
+        user_info: {
+          name: responseCreate.user_info.name,
+          username: responseCreate.user_info.username,
+          email: responseCreate.user_info.email,
+        },
       },
     }
   } catch (error) {

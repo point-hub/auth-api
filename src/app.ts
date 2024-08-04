@@ -3,7 +3,7 @@ import { BaseErrorHandler } from '@point-hub/papi'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import express, { NextFunction, Request, Response } from 'express'
+import express, { type Express } from 'express'
 import helmet from 'helmet'
 
 import cookieConfig from '@/config/cookie'
@@ -13,7 +13,7 @@ import router from './router'
 
 export interface IBaseAppInput extends IBaseRouterInput {}
 
-export const createApp = async (appInput: IBaseAppInput) => {
+export const createApp = async (appInput: IBaseAppInput): Promise<Express> => {
   const app = express()
 
   /**

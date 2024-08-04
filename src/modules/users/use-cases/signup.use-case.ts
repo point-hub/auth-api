@@ -1,18 +1,33 @@
-import type { ICreateOutput, ICreateRepository, ISchemaValidation } from '@point-hub/papi'
+import type { ICreateOutput, ICreateRepository, IRetrieveRepository, ISchemaValidation } from '@point-hub/papi'
 
+import pointhubConfig from '@/config/pointhub'
 import { renderHbsTemplate, sendMail } from '@/utils/email'
+import { throwApiError } from '@/utils/throw-api-error'
 
 import { UserEntity } from '../entity'
+import type { IRetrieveUserRepository } from '../repositories/retrieve.repository'
 import { signupValidation } from '../validations/signup.validation'
 
+export interface IOutput {
+  inserted_id: string
+  user_info: {
+    name: string
+    username: string
+    email: string
+  }
+}
 export interface IInput {
-  name: string
-  username: string
-  email: string
-  password: string
+  pointhubSecret: string
+  data: {
+    name: string
+    username: string
+    email: string
+    password: string
+  }
 }
 export interface IDeps {
   signupRepository: ICreateRepository
+  retrieveRepository: IRetrieveUserRepository
   createOrganizationRepository: ICreateRepository
   createProjectRepository: ICreateRepository
   cleanObject(object: object): object
@@ -28,45 +43,44 @@ export interface IOptions {
 }
 
 export class SignupUseCase {
-  static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<ICreateOutput> {
+  static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<IOutput> {
     // 1. validate schema
     await deps.schemaValidation(input, signupValidation)
-    // 2. define entity
+    // 2. verify pointhub secret
+    if (pointhubConfig.secret !== input.pointhubSecret) {
+      throwApiError('Forbidden')
+    }
+    // 3. define entity
     const linkVerification = deps.generateVerificationLink()
     const codeVerification = deps.generateVerificationCode()
     const userEntity = new UserEntity({
-      name: input.name,
-      username: input.username,
-      email: input.email,
-      password: input.password ? await deps.hashPassword(input.password) : '',
+      name: input.data.name,
+      username: input.data.username,
+      email: input.data.email,
+      password: input.data.password ? await deps.hashPassword(input.data.password) : '',
       email_verification_code: codeVerification,
     })
     userEntity.generateCreatedDate()
     const cleanEntity = deps.cleanObject(userEntity.data)
-    // 3. database operation
-    console.log(1)
+    // 4. database operation
     const responseSignup = await deps.signupRepository.handle(cleanEntity, options)
-    console.log(2, responseSignup.inserted_id)
-    const responseOrganization = await deps.createOrganizationRepository.handle({
-      name: 'My Organization',
-      owner_id: responseSignup.inserted_id,
-    })
-    console.log(3)
-    await deps.createProjectRepository.handle({
-      name: 'My Team',
-      organization_id: responseOrganization.inserted_id,
-    })
-    console.log(4)
-    // 4. send welcome email
+    // 5. send welcome email
     const compiledTemplate = await renderHbsTemplate('users/emails/email-verification.hbs', {
       name: userEntity.data.name,
       linkVerification: linkVerification,
       codeVerification: codeVerification,
     })
     sendMail(compiledTemplate, userEntity.data.email as string, 'Welcome to Pointhub')
-    // 5. return response
+    // 6. get user recorded data
+    const responseUser = await deps.retrieveRepository.handle(responseSignup.inserted_id, options)
+    // 7. return response
     return {
       inserted_id: responseSignup.inserted_id,
+      user_info: {
+        name: responseUser.name,
+        username: responseUser.username,
+        email: responseUser.email,
+      },
     }
   }
 }

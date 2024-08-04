@@ -2,12 +2,28 @@ import type { IDatabase, IRetrieveOutput, IRetrieveRepository } from '@point-hub
 
 import { collectionName } from '../entity'
 
-export class RetrieveRepository implements IRetrieveRepository {
+export interface IRetrieveUserOutput extends IRetrieveOutput {
+  _id: string
+  name: string
+  email: string
+  username: string
+}
+export interface IRetrieveUserRepository extends IRetrieveRepository {
+  handle(_id: string, options?: unknown): Promise<IRetrieveUserOutput>
+}
+
+export class RetrieveRepository implements IRetrieveUserRepository {
   public collection = collectionName
 
   constructor(public database: IDatabase) {}
 
-  async handle(_id: string, options?: unknown): Promise<IRetrieveOutput> {
-    return await this.database.collection(this.collection).retrieve(_id, options)
+  async handle(_id: string, options?: unknown): Promise<IRetrieveUserOutput> {
+    const user = await this.database.collection(collectionName).retrieve(_id, options)
+    return {
+      _id: user._id,
+      name: user.name as string,
+      email: user.email as string,
+      username: user.username as string,
+    }
   }
 }

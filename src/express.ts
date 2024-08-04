@@ -6,6 +6,7 @@ export const makeController = async (makeControllerInput: IMakeControllerInput) 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return async (req: Request, res: Response, next: NextFunction) => {
     const httpRequest: IHttpRequest = {
+      hostname: req.hostname,
       body: req.body,
       query: req.query,
       params: req.params,
@@ -19,6 +20,7 @@ export const makeController = async (makeControllerInput: IMakeControllerInput) 
         Authorization: req.get('Authorization'),
         'Content-Type': req.get('Content-Type'),
         'User-Agent': req.get('User-Agent'),
+        'Pointhub-Secret': req.get('Pointhub-Secret'),
       },
     }
     try {

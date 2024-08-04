@@ -18,9 +18,12 @@ export const googleAuthCallbackController: IController = async (controllerInput:
     const qs = new URLSearchParams(controllerInput.httpRequest.query)
     const googleAuth = new GoogleAuth()
     const tokens = await googleAuth.getToken(qs.get('code') as string)
+    console.log('tokens', tokens)
     const tokenInfo = await googleAuth.oAuth2Client.getTokenInfo(tokens.tokens.access_token as string)
-    const userInfo = await googleAuth.userInfo()
-    console.log(userInfo)
+    console.log('tokenInfo', tokenInfo)
+    googleAuth.oAuth2Client.setCredentials(tokens.tokens)
+    const userInfo = await googleAuth.userInfo(tokens.tokens.access_token as string)
+    console.log('userInfo', userInfo)
 
     await session.commitTransaction()
     // 4. return response to client

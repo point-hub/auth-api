@@ -36,8 +36,7 @@ export class Github {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization:
-          'Bearer ya29.a0AfB_byAlpDQd6CHynRXdawpuUo1mLq2R1RioNdEInJMa7Ad-Wl8FmG2ANAsNZ1uBv5AfBRV-rlILzQSv9ZEwBbKfC1L6ti9c3n6yNfrSPhDcrphPKnVSbalChOPeThJmWf7x5sD9BbZpxUlAlzRmvzT7ME89UIzZ-WnbaCgYKAaYSARISFQHGX2MiB893Kiac4c087OmJjV8ZNg0171',
+        Authorization: 'Bearer',
       },
     })
     return response.json()
