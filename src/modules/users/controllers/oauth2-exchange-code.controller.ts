@@ -8,10 +8,10 @@ import { RetrieveAllRepository } from '../repositories/retrieve-all.repository'
 import { SigninUseCase } from '../use-cases/signin.use-case'
 import { generateAccessToken, generateRefreshToken } from '../utils/jwt'
 
-export const oAuth2SigninController: IController = async (controllerInput: IControllerInput) => {
+export const oAuth2ExchangeCodeController: IController = async (controllerInput: IControllerInput) => {
   let session
   try {
-    console.log('asddsadasaa')
+    console.log('ggg')
     // 1. start session for transactional
     session = controllerInput.dbConnection.startSession()
     session.startTransaction()

@@ -1,9 +1,9 @@
 import type { IController, IControllerInput } from '@point-hub/papi'
 
 import { RetrieveAllRepository } from '../repositories/retrieve-all.repository'
-import { RetrieveAllExampleUseCase } from '../use-cases/retrieve-all.use-case'
+import { RetrieveAllOAuthClientUseCase } from '../use-cases/retrieve-all.use-case'
 
-export const retrieveAllExampleController: IController = async (controllerInput: IControllerInput) => {
+export const retrieveAllOAuthClientController: IController = async (controllerInput: IControllerInput) => {
   let session
   try {
     // 1. start session for transactional
@@ -12,7 +12,7 @@ export const retrieveAllExampleController: IController = async (controllerInput:
     // 2. define repository
     const retrieveAllRepository = new RetrieveAllRepository(controllerInput.dbConnection)
     // 3. handle business rules
-    const response = await RetrieveAllExampleUseCase.handle(
+    const response = await RetrieveAllOAuthClientUseCase.handle(
       { query: controllerInput.httpRequest.query },
       { retrieveAllRepository },
     )

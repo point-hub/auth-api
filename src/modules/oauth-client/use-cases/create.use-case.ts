@@ -1,6 +1,6 @@
 import type { ICreateOutput, ICreateRepository, ISchemaValidation } from '@point-hub/papi'
 
-import { ExampleEntity } from '../entity'
+import { OAuthClientEntity } from '../entity'
 import { createValidation } from '../validations/create.validation'
 
 export interface IInput {
@@ -16,10 +16,10 @@ export interface IOptions {
   session?: unknown
 }
 
-export class CreateExampleUseCase {
+export class CreateOAuthClientUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<ICreateOutput> {
     // 1. define entity
-    const exampleEntity = new ExampleEntity({
+    const exampleEntity = new OAuthClientEntity({
       name: input.name,
       phone: input.phone,
     })

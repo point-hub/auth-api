@@ -1,14 +1,14 @@
 export const seeds = [
   {
-    name: 'Example 1',
+    name: 'OAuthClient 1',
     created_date: new Date(),
   },
   {
-    name: 'Example 2',
+    name: 'OAuthClient 2',
     created_date: new Date(),
   },
   {
-    name: 'Example 3',
+    name: 'OAuthClient 3',
     created_date: new Date(),
   },
 ]

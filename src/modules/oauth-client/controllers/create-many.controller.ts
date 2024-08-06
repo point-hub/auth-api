@@ -4,9 +4,9 @@ import type { IController, IControllerInput } from '@point-hub/papi'
 import { schemaValidation } from '@/utils/validation'
 
 import { CreateManyRepository } from '../repositories/create-many.repository'
-import { CreateManyExampleUseCase } from '../use-cases/create-many.use-case'
+import { CreateManyOAuthClientUseCase } from '../use-cases/create-many.use-case'
 
-export const createManyExampleController: IController = async (controllerInput: IControllerInput) => {
+export const createManyOAuthClientController: IController = async (controllerInput: IControllerInput) => {
   let session
   try {
     // 1. start session for transactional
@@ -15,7 +15,7 @@ export const createManyExampleController: IController = async (controllerInput: 
     // 2. define repository
     const createManyRepository = new CreateManyRepository(controllerInput.dbConnection)
     // 3. handle business rules
-    const response = await CreateManyExampleUseCase.handle(
+    const response = await CreateManyOAuthClientUseCase.handle(
       controllerInput.httpRequest.body,
       { cleanObject: objClean, schemaValidation, createManyRepository },
       { session },

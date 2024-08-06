@@ -1,6 +1,6 @@
 import type { ICreateManyOutput, ICreateManyRepository, ISchemaValidation } from '@point-hub/papi'
 
-import { ExampleEntity } from '../entity'
+import { OAuthClientEntity } from '../entity'
 import { createManyValidation } from '../validations/create-many.validation'
 
 export interface IInput {
@@ -18,11 +18,11 @@ export interface IOptions {
   session?: unknown
 }
 
-export class CreateManyExampleUseCase {
+export class CreateManyOAuthClientUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<ICreateManyOutput> {
     const entities = []
     for (const document of input.examples) {
-      const exampleEntity = new ExampleEntity({
+      const exampleEntity = new OAuthClientEntity({
         name: document.name,
         phone: document.phone,
       })

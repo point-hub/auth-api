@@ -1,6 +1,6 @@
 import type { IDocument, ISchemaValidation, IUpdateManyOutput, IUpdateManyRepository } from '@point-hub/papi'
 
-import { ExampleEntity } from '../entity'
+import { OAuthClientEntity } from '../entity'
 import { updateManyValidation } from '../validations/update-many.validation'
 
 export interface IInput {
@@ -19,10 +19,10 @@ export interface IOptions {
   session?: unknown
 }
 
-export class UpdateManyExampleUseCase {
+export class UpdateManyOAuthClientUseCase {
   static async handle(input: IInput, deps: IDeps, options?: IOptions): Promise<IUpdateManyOutput> {
     // 1. define entity
-    const exampleEntity = new ExampleEntity({
+    const exampleEntity = new OAuthClientEntity({
       name: input.data.name,
       phone: input.data.phone,
     })

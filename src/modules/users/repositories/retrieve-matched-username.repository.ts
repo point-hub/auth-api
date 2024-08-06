@@ -8,6 +8,7 @@ export class RetrieveMatchedUsernameRepository implements IRetrieveAllRepository
   constructor(public database: IDatabase) {}
 
   async handle(query: IQuery, options?: unknown): Promise<IRetrieveAllOutput> {
+    console.log('query', query)
     return await this.database.collection(this.collection).retrieveAll(
       {
         filter: {

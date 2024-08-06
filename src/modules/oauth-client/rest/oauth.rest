@@ -1,7 +1,7 @@
 @baseUrl = {{$dotenv BASE_URL}}
 
 ###
-# @name createExample
+# @name createOAuthClient
 # @prompt name
 # @prompt phone
 POST {{baseUrl}}/v1/examples HTTP/1.1
@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ###
-# @name createManyExample
+# @name createManyOAuthClient
 # @prompt name1
 # @prompt phone1
 # @prompt name2
@@ -35,20 +35,20 @@ Content-Type: application/json
 ]
 
 ###
-# @name retrieveAllExample
+# @name retrieveAllOAuthClient
 GET {{baseUrl}}/v1/examples HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ###
-# @name retrieveExample
+# @name retrieveOAuthClient
 # @prompt id
 GET {{baseUrl}}/v1/examples/{{id}} HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ###
-# @name updateExample
+# @name updateOAuthClient
 # @prompt id
 # @prompt name
 # @prompt phone
@@ -62,7 +62,7 @@ Content-Type: application/json
 }
 
 ###
-# @name updateManyExample
+# @name updateManyOAuthClient
 # @prompt name
 # @prompt phone
 POST {{baseUrl}}/v1/examples/update-many HTTP/1.1
@@ -79,14 +79,14 @@ Content-Type: application/json
 }
 
 ###
-# @name deleteExample
+# @name deleteOAuthClient
 # @prompt id
 DELETE {{baseUrl}}/v1/examples/{{id}} HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 ###
-# @name deleteManyExample
+# @name deleteManyOAuthClient
 # @prompt id1
 # @prompt id2
 POST {{baseUrl}}/v1/examples/delete-many HTTP/1.1
@@ -98,7 +98,7 @@ Content-Type: application/json
 }
 
 ###
-# @name createTransactionExample
+# @name createTransactionOAuthClient
 # @prompt name1
 # @prompt phone1
 # @prompt name2

@@ -11,63 +11,63 @@ const makeRouter = async (routerInput: IBaseAppInput) => {
   router.post(
     '/',
     await makeController({
-      controller: controller.createExampleController,
+      controller: controller.createOAuthClientController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.get(
     '/',
     await makeController({
-      controller: controller.retrieveAllExampleController,
+      controller: controller.retrieveAllOAuthClientController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.get(
     '/:id',
     await makeController({
-      controller: controller.retrieveExampleController,
+      controller: controller.retrieveOAuthClientController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.patch(
     '/:id',
     await makeController({
-      controller: controller.updateExampleController,
+      controller: controller.updateOAuthClientController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.delete(
     '/:id',
     await makeController({
-      controller: controller.deleteExampleController,
+      controller: controller.deleteOAuthClientController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.post(
     '/create-many',
     await makeController({
-      controller: controller.createManyExampleController,
+      controller: controller.createManyOAuthClientController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.post(
     '/update-many',
     await makeController({
-      controller: controller.updateManyExampleController,
+      controller: controller.updateManyOAuthClientController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.post(
     '/delete-many',
     await makeController({
-      controller: controller.deleteManyExampleController,
+      controller: controller.deleteManyOAuthClientController,
       dbConnection: routerInput.dbConnection,
     }),
   )
   router.post(
     '/transaction',
     await makeController({
-      controller: controller.transactionExampleController,
+      controller: controller.transactionOAuthClientController,
       dbConnection: routerInput.dbConnection,
     }),
   )
