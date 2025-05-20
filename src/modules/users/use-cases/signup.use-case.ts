@@ -4,6 +4,7 @@ import type { ISchemaValidation } from '@point-hub/papi'
 import pointhubConfig from '@/config/pointhub'
 import { type IRenderHbsTemplate, type ISendMail, renderHbsTemplate, sendMail } from '@/utils/email'
 import { throwApiError } from '@/utils/throw-api-error'
+import type { IUniqueValidation } from '@/utils/unique-validation'
 
 import { UserEntity } from '../entity'
 import type { IRetrieveUserRepository } from '../repositories/retrieve.repository'
@@ -13,6 +14,8 @@ import { signupValidation } from '../validations/signup.validation'
 export interface IOutput {
   inserted_id: string
   user_info: {
+    name: string
+    username: string
     email: string
   }
 }
@@ -30,6 +33,7 @@ export interface IDeps {
   retrieveRepository: IRetrieveUserRepository
   cleanObject: IObjClean
   schemaValidation: ISchemaValidation
+  uniqueValidation: IUniqueValidation
   hashPassword(password: string): Promise<string>
   sendEmail: ISendMail
   renderHbsTemplate: IRenderHbsTemplate
@@ -41,6 +45,7 @@ export class SignupUseCase {
   static async handle(input: IInput, deps: IDeps): Promise<IOutput> {
     // 1. validate schema
     await deps.schemaValidation(input.data, signupValidation)
+
     // 2. verify pointhub secret
     if (pointhubConfig.secret !== input.pointhubSecret) {
       throwApiError('Forbidden')
@@ -58,6 +63,15 @@ export class SignupUseCase {
     userEntity.trimmedEmail()
     userEntity.trimmedUsername()
     const cleanEntity = deps.cleanObject(userEntity.data)
+    // 3. validate unique field
+    await deps.uniqueValidation.handle('users', {
+      match: { trimmed_username: input.data.username },
+      replaceErrorAttribute: { trimmed_username: 'username' },
+    })
+    await deps.uniqueValidation.handle('users', {
+      match: { trimmed_email: input.data.email },
+      replaceErrorAttribute: { trimmed_email: 'email' },
+    })
     // 4. database operation
     const responseSignup = await deps.signupRepository.handle(cleanEntity)
     // 5. send welcome email
@@ -72,6 +86,8 @@ export class SignupUseCase {
     return {
       inserted_id: responseSignup.inserted_id,
       user_info: {
+        name: responseUser.name,
+        username: responseUser.username,
         email: responseUser.email,
       },
     }

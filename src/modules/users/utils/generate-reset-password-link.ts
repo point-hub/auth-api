@@ -2,7 +2,7 @@ import { tokenGenerate } from '@point-hub/express-utils'
 
 import apiConfig from '@/config/api'
 
-export const generateVerificationLink = (userId: string) => {
+export const generateVerificationLink = () => {
   const token = tokenGenerate()
 
   return `${apiConfig.clientUrl}/reset-password/${token}`

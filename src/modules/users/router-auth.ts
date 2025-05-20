@@ -25,9 +25,25 @@ const makeRouter = async (routerInput: IBaseAppInput) => {
   )
 
   router.post(
+    '/signout',
+    await makeController({
+      controller: controller.signoutController,
+      dbConnection: routerInput.dbConnection,
+    }),
+  )
+
+  router.post(
     '/verify-email',
     await makeController({
       controller: controller.verifyEmailController,
+      dbConnection: routerInput.dbConnection,
+    }),
+  )
+
+  router.post(
+    '/verify-token',
+    await makeController({
+      controller: controller.verifyTokenController,
       dbConnection: routerInput.dbConnection,
     }),
   )

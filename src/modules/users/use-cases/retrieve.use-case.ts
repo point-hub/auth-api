@@ -11,9 +11,10 @@ export interface IDeps {
 export interface IOutput {
   _id: string
   name: string
-  phone: string
-  created_at: string
-  updated_at: string
+  username: string
+  email: string
+  created_at: Date
+  updated_at: Date
 }
 
 export class RetrieveUserUseCase {
@@ -24,7 +25,8 @@ export class RetrieveUserUseCase {
     return {
       _id: response._id,
       name: response.name,
-      phone: response.phone,
+      username: response.username,
+      email: response.email,
       created_at: response.created_at,
       updated_at: response.updated_at,
     }

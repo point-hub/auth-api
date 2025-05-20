@@ -38,7 +38,6 @@ export class RequestPasswordUseCase {
         },
       })
     }
-    console.log(users.data[0])
     // 4. generate access token
     const link = deps.generateResetPasswordLink(users.data[0]._id)
     // 5. send welcome email

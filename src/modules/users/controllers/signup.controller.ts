@@ -3,6 +3,7 @@ import type { IController, IControllerInput } from '@point-hub/papi'
 
 import pointhubConfig from '@/config/pointhub'
 import { renderHbsTemplate, sendMail } from '@/utils/email'
+import { UniqueValidation } from '@/utils/unique-validation'
 import { schemaValidation } from '@/utils/validation'
 
 import { RetrieveUserRepository } from '../repositories/retrieve.repository'
@@ -19,6 +20,7 @@ export const signupController: IController = async (controllerInput: IController
     // 2. define repository
     const signupRepository = new SignupRepository(controllerInput.dbConnection, { session })
     const retrieveRepository = new RetrieveUserRepository(controllerInput.dbConnection, { session })
+    const uniqueValidation = new UniqueValidation(controllerInput.dbConnection, { session })
     // 3. handle business rules
     const responseCreate = await SignupUseCase.handle(
       {
@@ -30,6 +32,7 @@ export const signupController: IController = async (controllerInput: IController
         retrieveRepository,
         cleanObject: objClean,
         schemaValidation,
+        uniqueValidation,
         hashPassword: Bun.password.hash,
         renderHbsTemplate: renderHbsTemplate,
         sendEmail: sendMail,

@@ -34,12 +34,10 @@ export class CreateManyUserUseCase {
     const entities = []
     for (const document of input.users) {
       // 3. validate unique
-      await deps.uniqueValidation.handle(collectionName, { name: document.name })
+      await deps.uniqueValidation.handle(collectionName, { match: { name: document.name } })
       const userEntity = new UserEntity({
         name: document.name,
-        phone: document.phone,
       })
-      userEntity.generateDate('created_at')
       userEntity.data = deps.objClean(userEntity.data)
       entities.push(userEntity.data)
     }

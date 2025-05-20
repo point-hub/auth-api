@@ -1,4 +1,3 @@
-import { isDate } from '@point-hub/express-utils'
 import type { IDatabase, IPagination } from '@point-hub/papi'
 
 import { collectionName } from '../entity'

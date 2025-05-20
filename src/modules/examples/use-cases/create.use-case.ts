@@ -26,7 +26,7 @@ export interface IOutput {
 export class CreateExampleUseCase {
   static async handle(input: IInput, deps: IDeps): Promise<IOutput> {
     // 1. validate unique
-    await deps.uniqueValidation.handle(collectionName, { name: input.name })
+    await deps.uniqueValidation.handle(collectionName, { match: { name: input.name } })
     // 2. validate schema
     await deps.schemaValidation(input, createValidation)
     // 3. define entity
