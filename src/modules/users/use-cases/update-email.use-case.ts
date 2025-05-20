@@ -1,4 +1,3 @@
-import type { IObjClean } from '@point-hub/express-utils'
 import type { ISchemaValidation } from '@point-hub/papi'
 
 import type { IUniqueValidation } from '@/utils/unique-validation'

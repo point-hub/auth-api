@@ -1,7 +1,5 @@
-import { objClean, tokenGenerate } from '@point-hub/express-utils'
 import type { IController, IControllerInput } from '@point-hub/papi'
 
-import pointhubConfig from '@/config/pointhub'
 import { renderHbsTemplate, sendMail } from '@/utils/email'
 import { throwApiError } from '@/utils/throw-api-error'
 import { schemaValidation } from '@/utils/validation'
