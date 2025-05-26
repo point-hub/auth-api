@@ -6,10 +6,7 @@ import { schemaValidation } from '@/utils/validation'
 
 import { RetrieveMatchedEmailRepository } from '../repositories/retrieve-matched-email.repository'
 import { RequestPasswordUseCase } from '../use-cases/request-password.use-case'
-
-const generateResetPasswordLink = (_id: string) => {
-  return _id
-}
+import { GenerateResetPassword } from '../utils/generate-reset-password-link'
 
 export const requestPasswordController: IController = async (controllerInput: IControllerInput) => {
   let session
@@ -19,7 +16,7 @@ export const requestPasswordController: IController = async (controllerInput: IC
     session.startTransaction()
     // 2. define repository
     const retrieveMatchedEmailRepository = new RetrieveMatchedEmailRepository(controllerInput.dbConnection, { session })
-
+    const generateResetPassword = new GenerateResetPassword(controllerInput.dbConnection, { session })
     // 3. handle business rules
     await RequestPasswordUseCase.handle(
       {
@@ -31,8 +28,8 @@ export const requestPasswordController: IController = async (controllerInput: IC
         throwApiError,
         schemaValidation,
         renderHbsTemplate,
-        sendEmail: sendMail,
-        generateResetPasswordLink,
+        sendMail,
+        generateResetPassword,
       },
     )
 

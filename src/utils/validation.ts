@@ -6,6 +6,10 @@ import { registerValidationPassword } from './validation-password'
 
 registerValidationPassword()
 
+export interface IValidation {
+  [key: string]: string[]
+}
+
 // https://github.com/mikeerickson/validatorjs
 export const schemaValidation: ISchemaValidation = async (document: IDocument, schema: IDocument) => {
   const validation = new Validatorjs(document, schema)

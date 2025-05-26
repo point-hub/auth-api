@@ -5,6 +5,7 @@
 export { isEmailExistsController } from './is-email-exists.controller'
 export { isUsernameExistsController } from './is-username-exists.controller'
 export { requestPasswordController } from './request-password.controller'
+export { resetPasswordController } from './reset-password.controller'
 export { retrieveUserController } from './retrieve.controller'
 export { retrieveAllUserController } from './retrieve-all.controller'
 export { signinController } from './signin.controller'

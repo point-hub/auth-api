@@ -1,10 +1,10 @@
 import type { ISchemaValidation } from '@point-hub/papi'
 
 import type { IUniqueValidation } from '@/utils/unique-validation'
+import type { IValidation } from '@/utils/validation'
 
 import { UserEntity } from '../entity'
 import type { IUpdateUserRepository } from '../repositories/update.repository'
-import type { IValidation } from '../validations/update-password.validation'
 
 export interface IInput {
   _id: string
