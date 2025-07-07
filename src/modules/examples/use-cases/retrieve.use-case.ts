@@ -1,3 +1,4 @@
+import type { IExampleNationality } from '../interface'
 import type { IRetrieveExampleRepository } from '../repositories/retrieve.repository'
 
 export interface IInput {
@@ -11,9 +12,11 @@ export interface IDeps {
 export interface IOutput {
   _id: string
   name: string
-  phone: string
-  created_at: string
-  updated_at: string
+  age: number
+  nationality: IExampleNationality
+  notes: string
+  created_at: Date
+  updated_at: Date
 }
 
 export class RetrieveExampleUseCase {
@@ -24,7 +27,9 @@ export class RetrieveExampleUseCase {
     return {
       _id: response._id,
       name: response.name,
-      phone: response.phone,
+      age: response.age,
+      nationality: response.nationality,
+      notes: response.notes,
       created_at: response.created_at,
       updated_at: response.updated_at,
     }

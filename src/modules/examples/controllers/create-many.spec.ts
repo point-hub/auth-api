@@ -18,14 +18,17 @@ describe('create many examples', async () => {
   it('validate schema', async () => {
     const data = [
       {
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
         name: faker.person.fullName(),
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
     ]
 
@@ -53,15 +56,18 @@ describe('create many examples', async () => {
     const data = [
       {
         name: faker.person.fullName(),
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
         name: faker.person.fullName(),
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
         name: faker.person.fullName(),
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
     ]
 
@@ -86,7 +92,8 @@ describe('create many examples', async () => {
     for (const [index, exampleRecord] of exampleRecords.data.entries()) {
       expect(exampleRecord._id).toStrictEqual(response.body.inserted_ids[index])
       expect(exampleRecord['name']).toStrictEqual(data[index].name)
-      expect(exampleRecord['phone']).toStrictEqual(data[index].phone)
+      expect(exampleRecord['age']).toStrictEqual(data[index].age)
+      expect(exampleRecord['nationality']).toStrictEqual(data[index].nationality)
       expect(isValid(new Date(exampleRecord['created_at'] as string))).toBeTruthy()
     }
   })

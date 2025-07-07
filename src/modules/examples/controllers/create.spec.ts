@@ -19,14 +19,17 @@ describe('create an example', async () => {
   })
   it('validate unique column', async () => {
     const exampleFactory = new ExampleFactory(DatabaseTestUtil.dbConnection)
+    const name = faker.person.fullName()
     exampleFactory.state({
-      name: 'John Doe',
+      name: name,
+      age: faker.number.int({ min: 25, max: 99 }),
+      nationality: { label: 'Indonesia', value: 'ID' },
     })
     await exampleFactory.create()
 
     // create new example with same name as above
     const data = {
-      name: 'John Doe',
+      name: name,
     }
     const response = await request(app).post('/v1/examples').send(data)
 
@@ -47,9 +50,7 @@ describe('create an example', async () => {
     expect(exampleRecord).toBeNull()
   })
   it('validate schema', async () => {
-    const data = {
-      phone: faker.phone.number(),
-    }
+    const data = {}
 
     const response = await request(app).post('/v1/examples').send(data)
 
@@ -64,6 +65,8 @@ describe('create an example', async () => {
     )
     expect(response.body.errors).toStrictEqual({
       name: ['The name field is required.'],
+      age: ['The age field is required.'],
+      nationality: ['The nationality field is required.'],
     })
 
     // expect recorded data
@@ -73,7 +76,8 @@ describe('create an example', async () => {
   it('create success', async () => {
     const data = {
       name: faker.person.fullName(),
-      phone: faker.phone.number(),
+      age: faker.number.int({ min: 25, max: 99 }),
+      nationality: { label: 'Indonesia', value: 'ID' },
     }
 
     const response = await request(app).post('/v1/examples').send(data)
@@ -89,6 +93,8 @@ describe('create an example', async () => {
 
     expect(exampleRecord._id).toStrictEqual(response.body.inserted_id)
     expect(exampleRecord['name']).toStrictEqual(data.name)
+    expect(exampleRecord['age']).toStrictEqual(data.age)
+    expect(exampleRecord['nationality']).toStrictEqual(data.nationality)
     expect(isValid(new Date(exampleRecord['created_at'] as string))).toBeTruthy()
   })
 })

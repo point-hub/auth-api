@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker'
 import { DatabaseTestUtil } from '@point-hub/papi'
 import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 import { isValid } from 'date-fns'
@@ -20,13 +21,19 @@ describe('update many examples', async () => {
     const exampleFactory = new ExampleFactory(DatabaseTestUtil.dbConnection)
     const exampleData = [
       {
-        phone: '',
+        name: faker.person.fullName(),
+        age: 25,
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
-        phone: '',
+        name: faker.person.fullName(),
+        age: 25,
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
-        phone: '12345678',
+        name: faker.person.fullName(),
+        age: 99,
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
     ]
     exampleFactory.sequence(exampleData)
@@ -37,10 +44,10 @@ describe('update many examples', async () => {
       .post('/v1/examples/update-many')
       .send({
         filter: {
-          phone: '',
+          age: 25,
         },
         data: {
-          phone: '11223344',
+          age: 30,
         },
       })
     // expect http response
@@ -54,16 +61,16 @@ describe('update many examples', async () => {
 
     // expect recorded data
     const exampleRecord1 = await DatabaseTestUtil.retrieve('examples', resultFactory.inserted_ids[0])
-    expect(exampleRecord1['phone']).toStrictEqual('11223344')
+    expect(exampleRecord1['age']).toStrictEqual(30)
     expect(isValid(new Date(exampleRecord1['updated_at'] as string))).toBeTruthy()
 
     const exampleRecord2 = await DatabaseTestUtil.retrieve('examples', resultFactory.inserted_ids[1])
-    expect(exampleRecord2['phone']).toStrictEqual('11223344')
+    expect(exampleRecord2['age']).toStrictEqual(30)
     expect(isValid(new Date(exampleRecord2['updated_at'] as string))).toBeTruthy()
 
     // expect unmodified data
     const exampleRecord3 = await DatabaseTestUtil.retrieve('examples', resultFactory.inserted_ids[2])
-    expect(exampleRecord3['phone']).toStrictEqual('12345678')
+    expect(exampleRecord3['age']).toStrictEqual(99)
     expect(isValid(new Date(exampleRecord3['updated_at'] as string))).toBeFalsy()
   })
 })

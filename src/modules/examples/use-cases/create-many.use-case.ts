@@ -4,13 +4,16 @@ import type { ISchemaValidation } from '@point-hub/papi'
 import type { IUniqueValidation } from '@/utils/unique-validation'
 
 import { collectionName, ExampleEntity } from '../entity'
+import type { IExampleNationality } from '../interface'
 import type { ICreateManyExampleRepository } from '../repositories/create-many.repository'
 import { createManyValidation } from '../validations/create-many.validation'
 
 export interface IInput {
   examples: {
     name?: string
-    phone?: string
+    age?: number
+    nationality?: IExampleNationality
+    notes?: string
   }[]
 }
 
@@ -30,16 +33,18 @@ export class CreateManyExampleUseCase {
   static async handle(input: IInput, deps: IDeps): Promise<IOutput> {
     // 1. validate schema
     await deps.schemaValidation({ examples: input.examples }, createManyValidation)
+    await deps.uniqueValidation.handle(collectionName, { match: input })
     // 2. define entity
     const entities = []
     for (const document of input.examples) {
       // 3. validate unique
-      await deps.uniqueValidation.handle(collectionName, { match: { name: document.name } })
       const exampleEntity = new ExampleEntity({
         name: document.name,
-        phone: document.phone,
+        age: document.age,
+        nationality: document.nationality,
+        notes: document.notes,
+        created_at: new Date(),
       })
-      exampleEntity.generateDate('created_at')
       exampleEntity.data = deps.objClean(exampleEntity.data)
       entities.push(exampleEntity.data)
     }

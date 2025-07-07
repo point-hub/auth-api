@@ -47,7 +47,7 @@ export default class DbInitCommand extends BaseConsoleCommand {
 
           for (const unique of iterator.uniqueIfExists) {
             if (unique.length) {
-              console.info(`[schema] ${iterator.collection} - create unique attribute "${unique}"`)
+              console.info(`[schema] ${iterator.collection} - create optional unique attribute "${unique}"`)
               await helper.createUniqueIfNotNull(
                 iterator.collection,
                 BaseMongoDBQuerystring.convertArrayToObject(unique, -1),

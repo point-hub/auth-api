@@ -4,6 +4,7 @@ import type { ISchemaValidation } from '@point-hub/papi'
 import type { IUniqueValidation } from '@/utils/unique-validation'
 
 import { collectionName, ExampleEntity } from '../entity'
+import type { IExampleNationality } from '../interface'
 import type { IUpdateExampleRepository } from '../repositories/update.repository'
 import { updateValidation } from '../validations/update.validation'
 
@@ -11,7 +12,9 @@ export interface IInput {
   _id: string
   data: {
     name?: string
-    phone?: string
+    age?: number
+    nationality?: IExampleNationality
+    notes?: string
   }
 }
 
@@ -36,10 +39,11 @@ export class UpdateExampleUseCase {
     // 3. define entity
     const exampleEntity = new ExampleEntity({
       name: input.data.name,
-      phone: input.data.phone,
+      age: input.data.age,
+      nationality: input.data.nationality,
+      notes: input.data.notes,
+      updated_at: new Date(),
     })
-    exampleEntity.generateDate('updated_at')
-    exampleEntity.data = deps.objClean(exampleEntity.data)
     // 4. database operation
     const response = await deps.updateExampleRepository.handle(input._id, exampleEntity.data)
     // 5. output

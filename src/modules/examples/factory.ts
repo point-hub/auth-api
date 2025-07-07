@@ -13,7 +13,8 @@ export default class ExampleFactory extends BaseFactory<IExampleEntity> {
   definition() {
     return {
       name: faker.person.fullName(),
-      phone: faker.phone.number(),
+      age: faker.number.int({ min: 25, max: 99 }),
+      nationality: { label: 'Indonesia', value: 'ID' },
       created_at: new Date(),
     }
   }

@@ -2,6 +2,7 @@ import type { IObjClean } from '@point-hub/express-utils'
 import type { IDocument, ISchemaValidation } from '@point-hub/papi'
 
 import { ExampleEntity } from '../entity'
+import type { IExampleNationality } from '../interface'
 import type { IUpdateManyExampleRepository } from '../repositories/update-many.repository'
 import { updateManyValidation } from '../validations/update-many.validation'
 
@@ -9,7 +10,9 @@ export interface IInput {
   filter: IDocument
   data: {
     name?: string
-    phone?: string
+    age?: number
+    nationality?: IExampleNationality
+    notes?: string
   }
 }
 
@@ -35,9 +38,11 @@ export class UpdateManyExampleUseCase {
     // 2. define entity
     const exampleEntity = new ExampleEntity({
       name: input.data.name,
-      phone: input.data.phone,
+      age: input.data.age,
+      nationality: input.data.nationality,
+      notes: input.data.notes,
+      updated_at: new Date(),
     })
-    exampleEntity.generateDate('updated_at')
     exampleEntity.data = deps.objClean(exampleEntity.data)
     // 3. database operation
     const response = await deps.updateManyExampleRepository.handle(input.filter, exampleEntity.data)

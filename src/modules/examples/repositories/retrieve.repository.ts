@@ -1,6 +1,7 @@
 import type { IDatabase } from '@point-hub/papi'
 
 import { collectionName } from '../entity'
+import type { IExampleNationality } from '../interface'
 
 export interface IRetrieveExampleRepository {
   handle(_id: string): Promise<IRetrieveExampleOutput>
@@ -9,9 +10,11 @@ export interface IRetrieveExampleRepository {
 export interface IRetrieveExampleOutput {
   _id: string
   name: string
-  phone: string
-  created_at: string
-  updated_at: string
+  age: number
+  nationality: IExampleNationality
+  notes: string
+  created_at: Date
+  updated_at: Date
 }
 
 export class RetrieveExampleRepository implements IRetrieveExampleRepository {
@@ -25,9 +28,11 @@ export class RetrieveExampleRepository implements IRetrieveExampleRepository {
     return {
       _id: response._id,
       name: response['name'] as string,
-      phone: response['phone'] as string,
-      created_at: response['created_at'] as string,
-      updated_at: response['updated_at'] as string,
+      age: response['age'] as number,
+      nationality: response['nationality'] as IExampleNationality,
+      notes: response['notes'] as string,
+      created_at: response['created_at'] as Date,
+      updated_at: response['updated_at'] as Date,
     }
   }
 }
