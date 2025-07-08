@@ -1,4 +1,4 @@
-import type { IQuery } from '@point-hub/papi'
+import type { IPagination, IQuery } from '@point-hub/papi'
 
 import type { IRetrieveModuleExampleOutput } from '../repositories/retrieve.repository'
 import type { IRetrieveAllModuleExampleRepository } from '../repositories/retrieve-all.repository'
@@ -13,12 +13,7 @@ export interface IDeps {
 
 export interface IOutput {
   data: IRetrieveModuleExampleOutput[]
-  pagination: {
-    page: number
-    page_count: number
-    page_size: number
-    total_document: number
-  }
+  pagination: IPagination
 }
 
 export class RetrieveAllModuleExampleUseCase {

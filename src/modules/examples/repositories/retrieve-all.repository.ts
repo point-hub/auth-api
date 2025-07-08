@@ -15,7 +15,6 @@ export interface IRetrieveAllExampleOutput {
 }
 
 export interface IExampleQueryFilter {
-  [key: string]: string | undefined
   all?: string
   name?: string
   age?: string
