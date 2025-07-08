@@ -1,11 +1,11 @@
 export interface IModuleExampleEntity {
   _id?: string
   name?: string
-  phone?: string
+  age?: number
+  nationality?: IModuleExampleNationality
+  notes?: string
   created_at?: Date
-  created_by?: string
   updated_at?: Date
-  updated_by?: string
 }
 
 export interface IModuleExampleNationality {

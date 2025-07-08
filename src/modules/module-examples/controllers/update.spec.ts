@@ -9,7 +9,7 @@ import { createApp } from '@/app'
 
 import ModuleExampleFactory from '../factory'
 
-describe('update an module_examples', async () => {
+describe('update an module example', async () => {
   let app: Express
   beforeAll(async () => {
     app = await createApp({ dbConnection: DatabaseTestUtil.dbConnection })
@@ -44,7 +44,7 @@ describe('update an module_examples', async () => {
     // expect data unmodified
     const unmodifiedModuleExampleRecord = await DatabaseTestUtil.retrieve('module_examples', resultFactory.inserted_id)
     expect(unmodifiedModuleExampleRecord['name']).toStrictEqual(moduleExamples.data[0]['name'])
-    expect(unmodifiedModuleExampleRecord['updated_date']).toBeUndefined()
+    expect(unmodifiedModuleExampleRecord['updated_at']).toBeUndefined()
   })
   it('update success', async () => {
     const resultFactory = await new ModuleExampleFactory(DatabaseTestUtil.dbConnection).createMany(3)
@@ -53,7 +53,6 @@ describe('update an module_examples', async () => {
       name: faker.person.fullName(),
     }
     const response = await request(app).patch(`/v1/module-examples/${resultFactory.inserted_ids[1]}`).send(updateData)
-    console.log(response.status)
     // expect http response
     expect(response.statusCode).toEqual(200)
     // expect response json
@@ -64,13 +63,13 @@ describe('update an module_examples', async () => {
     // expect recorded data
     const moduleExampleRecord = await DatabaseTestUtil.retrieve('module_examples', resultFactory.inserted_ids[1])
     expect(moduleExampleRecord['name']).toStrictEqual(updateData.name)
-    expect(isValid(new Date(moduleExampleRecord['updated_date'] as string))).toBeTruthy()
+    expect(isValid(new Date(moduleExampleRecord['updated_at'] as string))).toBeTruthy()
     // expect another data unmodified
     const unmodifiedModuleExampleRecord = await DatabaseTestUtil.retrieve(
       'module_examples',
       resultFactory.inserted_ids[0],
     )
     expect(unmodifiedModuleExampleRecord['name']).toStrictEqual(moduleExamples.data[0]['name'])
-    expect(unmodifiedModuleExampleRecord['updated_date']).toBeUndefined()
+    expect(unmodifiedModuleExampleRecord['updated_at']).toBeUndefined()
   })
 })

@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker'
 import { DatabaseTestUtil } from '@point-hub/papi'
 import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 import type { Express } from 'express'
@@ -17,9 +18,13 @@ describe('module example use transaction', async () => {
     const data = {
       new: {
         name: 'John',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       create: {
         name: 'John',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
     }
 
@@ -33,14 +38,20 @@ describe('module example use transaction', async () => {
     const data = {
       new: {
         name: 'John',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       create: {
         name: 'John 2',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       createMany: {
         module_examples: [
           {
             name: 'John 2',
+            age: faker.number.int({ min: 25, max: 99 }),
+            nationality: { label: 'Indonesia', value: 'ID' },
           },
         ],
       },
@@ -56,14 +67,20 @@ describe('module example use transaction', async () => {
     const data = {
       new: {
         name: 'John',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       create: {
         name: 'John 2',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       createMany: {
         module_examples: [
           {
             name: 'John 3',
+            age: faker.number.int({ min: 25, max: 99 }),
+            nationality: { label: 'Indonesia', value: 'ID' },
           },
         ],
       },
@@ -82,17 +99,25 @@ describe('module example use transaction', async () => {
     const data = {
       new: {
         name: 'John',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       create: {
         name: 'John 2',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       createMany: {
         module_examples: [
           {
             name: 'John 3',
+            age: faker.number.int({ min: 25, max: 99 }),
+            nationality: { label: 'Indonesia', value: 'ID' },
           },
           {
             name: 'John 4',
+            age: faker.number.int({ min: 25, max: 99 }),
+            nationality: { label: 'Indonesia', value: 'ID' },
           },
         ],
       },
@@ -120,17 +145,25 @@ describe('module example use transaction', async () => {
     const data = {
       new: {
         name: 'John',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       create: {
         name: 'John 2',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       createMany: {
         module_examples: [
           {
             name: 'John 3',
+            age: faker.number.int({ min: 25, max: 99 }),
+            nationality: { label: 'Indonesia', value: 'ID' },
           },
           {
             name: 'John 4',
+            age: faker.number.int({ min: 25, max: 99 }),
+            nationality: { label: 'Indonesia', value: 'ID' },
           },
         ],
       },
@@ -158,17 +191,25 @@ describe('module example use transaction', async () => {
     const data = {
       new: {
         name: 'John',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       create: {
         name: 'John 2',
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       createMany: {
         module_examples: [
           {
             name: 'John 3',
+            age: faker.number.int({ min: 25, max: 99 }),
+            nationality: { label: 'Indonesia', value: 'ID' },
           },
           {
             name: 'John 4',
+            age: faker.number.int({ min: 25, max: 99 }),
+            nationality: { label: 'Indonesia', value: 'ID' },
           },
         ],
       },

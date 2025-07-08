@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker'
 import { DatabaseTestUtil } from '@point-hub/papi'
 import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 import { isValid } from 'date-fns'
@@ -20,26 +21,33 @@ describe('update many module_examples', async () => {
     const moduleExampleFactory = new ModuleExampleFactory(DatabaseTestUtil.dbConnection)
     const moduleExampleData = [
       {
-        phone: '',
+        name: faker.person.fullName(),
+        age: 25,
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
-        phone: '',
+        name: faker.person.fullName(),
+        age: 25,
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
-        phone: '12345678',
+        name: faker.person.fullName(),
+        age: 99,
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
     ]
     moduleExampleFactory.sequence(moduleExampleData)
     const resultFactory = await moduleExampleFactory.createMany(3)
 
+    // suspend every module example data with name robot
     const response = await request(app)
       .post('/v1/module-examples/update-many')
       .send({
         filter: {
-          phone: '',
+          age: 25,
         },
         data: {
-          phone: '11223344',
+          age: 30,
         },
       })
     // expect http response
@@ -53,16 +61,16 @@ describe('update many module_examples', async () => {
 
     // expect recorded data
     const moduleExampleRecord1 = await DatabaseTestUtil.retrieve('module_examples', resultFactory.inserted_ids[0])
-    expect(moduleExampleRecord1['phone']).toStrictEqual('11223344')
-    expect(isValid(new Date(moduleExampleRecord1['updated_date'] as string))).toBeTruthy()
+    expect(moduleExampleRecord1['age']).toStrictEqual(30)
+    expect(isValid(new Date(moduleExampleRecord1['updated_at'] as string))).toBeTruthy()
 
     const moduleExampleRecord2 = await DatabaseTestUtil.retrieve('module_examples', resultFactory.inserted_ids[1])
-    expect(moduleExampleRecord2['phone']).toStrictEqual('11223344')
-    expect(isValid(new Date(moduleExampleRecord2['updated_date'] as string))).toBeTruthy()
+    expect(moduleExampleRecord2['age']).toStrictEqual(30)
+    expect(isValid(new Date(moduleExampleRecord2['updated_at'] as string))).toBeTruthy()
 
     // expect unmodified data
     const moduleExampleRecord3 = await DatabaseTestUtil.retrieve('module_examples', resultFactory.inserted_ids[2])
-    expect(moduleExampleRecord3['phone']).toStrictEqual('12345678')
-    expect(isValid(new Date(moduleExampleRecord3['updated_date'] as string))).toBeFalsy()
+    expect(moduleExampleRecord3['age']).toStrictEqual(99)
+    expect(isValid(new Date(moduleExampleRecord3['updated_at'] as string))).toBeFalsy()
   })
 })

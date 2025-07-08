@@ -8,7 +8,7 @@ import { createApp } from '@/app'
 
 import ModuleExampleFactory from '../factory'
 
-describe('retrieve an module_examples', async () => {
+describe('retrieve an module example', async () => {
   let app: Express
   beforeAll(async () => {
     app = await createApp({ dbConnection: DatabaseTestUtil.dbConnection })
@@ -30,7 +30,8 @@ describe('retrieve an module_examples', async () => {
     // expect response json
     expect(response.body._id).toBeDefined()
     expect(response.body.name).toStrictEqual(moduleExamples.data[1]['name'])
-    expect(response.body.phone).toStrictEqual(moduleExamples.data[1]['phone'])
-    expect(isValid(new Date(response.body.created_date))).toBeTruthy()
+    expect(response.body.age).toStrictEqual(moduleExamples.data[1]['age'])
+    expect(response.body.nationality).toStrictEqual(moduleExamples.data[1]['nationality'])
+    expect(isValid(new Date(response.body.created_at))).toBeTruthy()
   })
 })

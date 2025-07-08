@@ -13,7 +13,9 @@ export default class ModuleExampleFactory extends BaseFactory<IModuleExampleEnti
   definition() {
     return {
       name: faker.person.fullName(),
-      created_date: new Date(),
+      age: faker.number.int({ min: 25, max: 99 }),
+      nationality: { label: 'Indonesia', value: 'ID' },
+      created_at: new Date(),
     }
   }
 

@@ -18,14 +18,17 @@ describe('create many module_examples', async () => {
   it('validate schema', async () => {
     const data = [
       {
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
         name: faker.person.fullName(),
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
     ]
 
@@ -41,8 +44,8 @@ describe('create many module_examples', async () => {
       'The request was well-formed but was unable to be followed due to semantic errors.',
     )
     expect(response.body.errors).toStrictEqual({
-      'module_examples.0.name': ['The module_examples.0.name field is required.'],
-      'module_examples.2.name': ['The module_examples.2.name field is required.'],
+      'module_examples.0.name': ['The module examples.0.name field is required.'],
+      'module_examples.2.name': ['The module examples.2.name field is required.'],
     })
 
     // expect recorded data
@@ -53,15 +56,18 @@ describe('create many module_examples', async () => {
     const data = [
       {
         name: faker.person.fullName(),
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
         name: faker.person.fullName(),
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
       {
         name: faker.person.fullName(),
-        phone: faker.phone.number(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
       },
     ]
 
@@ -86,8 +92,9 @@ describe('create many module_examples', async () => {
     for (const [index, moduleExampleRecord] of moduleExampleRecords.data.entries()) {
       expect(moduleExampleRecord._id).toStrictEqual(response.body.inserted_ids[index])
       expect(moduleExampleRecord['name']).toStrictEqual(data[index].name)
-      expect(moduleExampleRecord['phone']).toStrictEqual(data[index].phone)
-      expect(isValid(new Date(moduleExampleRecord['created_date'] as string))).toBeTruthy()
+      expect(moduleExampleRecord['age']).toStrictEqual(data[index].age)
+      expect(moduleExampleRecord['nationality']).toStrictEqual(data[index].nationality)
+      expect(isValid(new Date(moduleExampleRecord['created_at'] as string))).toBeTruthy()
     }
   })
 })

@@ -7,7 +7,7 @@ import { createApp } from '@/app'
 
 import ModuleExampleFactory from '../factory'
 
-describe('delete an module_examples', async () => {
+describe('delete an module example', async () => {
   let app: Express
   beforeAll(async () => {
     app = await createApp({ dbConnection: DatabaseTestUtil.dbConnection })

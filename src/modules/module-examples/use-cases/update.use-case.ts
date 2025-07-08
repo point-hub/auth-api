@@ -33,7 +33,7 @@ export interface IOutput {
 export class UpdateModuleExampleUseCase {
   static async handle(input: IInput, deps: IDeps): Promise<IOutput> {
     // 1. validate unique
-    await deps.uniqueValidation.handle(collectionName, { name: input.data.name }, input._id)
+    await deps.uniqueValidation.handle(collectionName, { match: { name: input.data.name } }, input._id)
     // 2. validate schema
     await deps.schemaValidation(input.data, updateValidation)
     // 3. define entity

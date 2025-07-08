@@ -14,9 +14,7 @@ export const createManyModuleExampleController: IController = async (controllerI
     session = controllerInput.dbConnection.startSession()
     session.startTransaction()
     // 2. define repository
-    const createManyModuleExampleRepository = new CreateManyModuleExampleRepository(controllerInput.dbConnection, {
-      session,
-    })
+    const createManyModuleExampleRepository = new CreateManyModuleExampleRepository(controllerInput.dbConnection, { session })
     const uniqueValidation = new UniqueValidation(controllerInput.dbConnection)
     // 3. handle business rules
     const response = await CreateManyModuleExampleUseCase.handle(controllerInput.httpRequest['body'], {

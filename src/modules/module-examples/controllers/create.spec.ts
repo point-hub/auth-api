@@ -9,7 +9,7 @@ import { createApp } from '@/app'
 
 import ModuleExampleFactory from '../factory'
 
-describe('create an module_examples', async () => {
+describe('create an module example', async () => {
   let app: Express
   beforeAll(async () => {
     app = await createApp({ dbConnection: DatabaseTestUtil.dbConnection })
@@ -19,14 +19,17 @@ describe('create an module_examples', async () => {
   })
   it('validate unique column', async () => {
     const moduleExampleFactory = new ModuleExampleFactory(DatabaseTestUtil.dbConnection)
+    const name = faker.person.fullName()
     moduleExampleFactory.state({
-      name: 'John Doe',
+      name: name,
+      age: faker.number.int({ min: 25, max: 99 }),
+      nationality: { label: 'Indonesia', value: 'ID' },
     })
     await moduleExampleFactory.create()
 
-    // create new client with same name as above
+    // create new module example with same name as above
     const data = {
-      name: 'John Doe',
+      name: name,
     }
     const response = await request(app).post('/v1/module-examples').send(data)
 
@@ -47,9 +50,7 @@ describe('create an module_examples', async () => {
     expect(moduleExampleRecord).toBeNull()
   })
   it('validate schema', async () => {
-    const data = {
-      phone: faker.phone.number(),
-    }
+    const data = {}
 
     const response = await request(app).post('/v1/module-examples').send(data)
 
@@ -64,6 +65,8 @@ describe('create an module_examples', async () => {
     )
     expect(response.body.errors).toStrictEqual({
       name: ['The name field is required.'],
+      age: ['The age field is required.'],
+      nationality: ['The nationality field is required.'],
     })
 
     // expect recorded data
@@ -73,7 +76,8 @@ describe('create an module_examples', async () => {
   it('create success', async () => {
     const data = {
       name: faker.person.fullName(),
-      phone: faker.phone.number(),
+      age: faker.number.int({ min: 25, max: 99 }),
+      nationality: { label: 'Indonesia', value: 'ID' },
     }
 
     const response = await request(app).post('/v1/module-examples').send(data)
@@ -89,6 +93,8 @@ describe('create an module_examples', async () => {
 
     expect(moduleExampleRecord._id).toStrictEqual(response.body.inserted_id)
     expect(moduleExampleRecord['name']).toStrictEqual(data.name)
-    expect(isValid(new Date(moduleExampleRecord['created_date'] as string))).toBeTruthy()
+    expect(moduleExampleRecord['age']).toStrictEqual(data.age)
+    expect(moduleExampleRecord['nationality']).toStrictEqual(data.nationality)
+    expect(isValid(new Date(moduleExampleRecord['created_at'] as string))).toBeTruthy()
   })
 })
