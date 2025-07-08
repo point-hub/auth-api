@@ -1,8 +1,0 @@
-export { CreateCustomerRepository } from './create.repository'
-export { CreateManyCustomerRepository } from './create-many.repository'
-export { DeleteCustomerRepository } from './delete.repository'
-export { DeleteManyCustomerRepository } from './delete-many.repository'
-export { RetrieveCustomerRepository } from './retrieve.repository'
-export { RetrieveAllCustomerRepository } from './retrieve-all.repository'
-export { UpdateCustomerRepository } from './update.repository'
-export { UpdateManyCustomerRepository } from './update-many.repository'
