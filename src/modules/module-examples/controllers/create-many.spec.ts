@@ -52,6 +52,56 @@ describe('create many module_examples', async () => {
     const moduleExampleRecords = await DatabaseTestUtil.retrieveAll('module_examples')
     expect(moduleExampleRecords.data.length).toStrictEqual(0)
   })
+  it('validate unique', async () => {
+    // Seed existing data
+    const existingName = faker.person.fullName()
+
+    await request(app)
+      .post('/v1/module-examples/create-many')
+      .send({
+        module_examples: [
+          {
+            name: existingName,
+            age: faker.number.int({ min: 25, max: 99 }),
+            nationality: { label: 'Indonesia', value: 'ID' },
+          },
+        ],
+      })
+
+    // Attempt to insert new data with a duplicate name
+    const data = [
+      {
+        name: existingName, // duplicate
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
+      },
+      {
+        name: faker.person.fullName(),
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
+      },
+      {
+        name: existingName, // duplicate
+        age: faker.number.int({ min: 25, max: 99 }),
+        nationality: { label: 'Indonesia', value: 'ID' },
+      },
+    ]
+
+    const response = await request(app).post('/v1/module-examples/create-many').send({ module_examples: data })
+
+    // expect HTTP response
+    expect(response.statusCode).toEqual(422)
+
+    // expect error details
+    expect(response.body.errors).toStrictEqual({
+      'module_examples.0.name': ['The name is exists.'],
+      'module_examples.2.name': ['The name is exists.'],
+    })
+
+    // expect no new data was inserted due to transactional rollback
+    const allRecords = await DatabaseTestUtil.retrieveAll('module_examples')
+    expect(allRecords.data.length).toBe(1) // only seeded record
+  })
   it('create success', async () => {
     const data = [
       {

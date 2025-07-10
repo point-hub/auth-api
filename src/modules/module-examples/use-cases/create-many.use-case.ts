@@ -36,6 +36,7 @@ export class CreateManyModuleExampleUseCase {
     // 2. validate unique
     const filters = input.module_examples.map((example) => ({
       match: { name: example.name },
+      pathPrefix: collectionName,
     }))
     await deps.uniqueValidation.handleMany(collectionName, filters)
     // 3. define entity
