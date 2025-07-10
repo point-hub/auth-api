@@ -122,9 +122,7 @@ export const transactionModuleExampleController: IController = async (controller
     // 4. return response to client
     return {
       status: 201,
-      json: {
-        inserted_id: responseCreate.inserted_id,
-      },
+      json: responseCreate,
     }
   } catch (error) {
     await session?.abortTransaction()

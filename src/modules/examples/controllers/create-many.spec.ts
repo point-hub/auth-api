@@ -38,14 +38,14 @@ describe('create many examples', async () => {
     expect(response.statusCode).toEqual(422)
 
     // expect response json
-    expect(response.body.code).toStrictEqual(422)
-    expect(response.body.status).toStrictEqual('Unprocessable Entity')
-    expect(response.body.message).toStrictEqual(
-      'The request was well-formed but was unable to be followed due to semantic errors.',
-    )
-    expect(response.body.errors).toStrictEqual({
-      'examples.0.name': ['The examples.0.name field is required.'],
-      'examples.2.name': ['The examples.2.name field is required.'],
+    expect(response.body).toMatchObject({
+      code: 422,
+      status: 'Unprocessable Entity',
+      message: 'The request was well-formed but was unable to be followed due to semantic errors.',
+      errors: {
+        'examples.0.name': ['The examples.0.name field is required.'],
+        'examples.2.name': ['The examples.2.name field is required.'],
+      },
     })
 
     // expect recorded data

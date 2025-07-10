@@ -17,7 +17,31 @@ describe('create an example', async () => {
   beforeEach(async () => {
     await DatabaseTestUtil.reset()
   })
-  it('validate unique column', async () => {
+  it('validate schema', async () => {
+    const data = {}
+
+    const response = await request(app).post('/v1/examples').send(data)
+
+    // expect http response
+    expect(response.statusCode).toEqual(422)
+
+    // expect response json
+    expect(response.body.code).toStrictEqual(422)
+    expect(response.body.status).toStrictEqual('Unprocessable Entity')
+    expect(response.body.message).toStrictEqual(
+      'The request was well-formed but was unable to be followed due to semantic errors.',
+    )
+    expect(response.body.errors).toStrictEqual({
+      name: ['The name field is required.'],
+      age: ['The age field is required.'],
+      nationality: ['The nationality field is required.'],
+    })
+
+    // expect recorded data
+    const exampleRecord = await DatabaseTestUtil.retrieve('examples', response.body.inserted_id)
+    expect(exampleRecord).toBeNull()
+  })
+  it('validate unique', async () => {
     const exampleFactory = new ExampleFactory(DatabaseTestUtil.dbConnection)
     const name = faker.person.fullName()
     exampleFactory.state({
@@ -44,30 +68,6 @@ describe('create an example', async () => {
     expect(response.body.errors).toStrictEqual({
       name: ['The name is exists.'],
     })
-    // expect recorded data
-    const exampleRecord = await DatabaseTestUtil.retrieve('examples', response.body.inserted_id)
-    expect(exampleRecord).toBeNull()
-  })
-  it('validate schema', async () => {
-    const data = {}
-
-    const response = await request(app).post('/v1/examples').send(data)
-
-    // expect http response
-    expect(response.statusCode).toEqual(422)
-
-    // expect response json
-    expect(response.body.code).toStrictEqual(422)
-    expect(response.body.status).toStrictEqual('Unprocessable Entity')
-    expect(response.body.message).toStrictEqual(
-      'The request was well-formed but was unable to be followed due to semantic errors.',
-    )
-    expect(response.body.errors).toStrictEqual({
-      name: ['The name field is required.'],
-      age: ['The age field is required.'],
-      nationality: ['The nationality field is required.'],
-    })
-
     // expect recorded data
     const exampleRecord = await DatabaseTestUtil.retrieve('examples', response.body.inserted_id)
     expect(exampleRecord).toBeNull()

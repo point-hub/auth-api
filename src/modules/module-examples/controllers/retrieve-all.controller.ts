@@ -20,10 +20,7 @@ export const retrieveAllModuleExampleController: IController = async (controller
     // 4. return response to client
     return {
       status: 200,
-      json: {
-        data: response.data,
-        pagination: response.pagination,
-      },
+      json: response,
     }
   } catch (error) {
     await session?.abortTransaction()

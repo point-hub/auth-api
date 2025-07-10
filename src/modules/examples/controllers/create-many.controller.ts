@@ -27,10 +27,7 @@ export const createManyExampleController: IController = async (controllerInput: 
     // 4. return response to client
     return {
       status: 201,
-      json: {
-        inserted_ids: response.inserted_ids,
-        inserted_count: response.inserted_count,
-      },
+      json: response,
     }
   } catch (error) {
     await session?.abortTransaction()

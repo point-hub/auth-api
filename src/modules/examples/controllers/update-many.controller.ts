@@ -26,10 +26,7 @@ export const updateManyExampleController: IController = async (controllerInput: 
     // 4. return response to client
     return {
       status: 200,
-      json: {
-        matched_count: response.matched_count,
-        modified_count: response.modified_count,
-      },
+      json: response,
     }
   } catch (error) {
     await session?.abortTransaction()
