@@ -25,11 +25,17 @@ export const transactionModuleExampleController: IController = async (controller
     session.startTransaction()
     // 2. define repository
     const createModuleExampleRepository = new CreateModuleExampleRepository(controllerInput.dbConnection, { session })
-    const createManyModuleExampleRepository = new CreateManyModuleExampleRepository(controllerInput.dbConnection, { session })
+    const createManyModuleExampleRepository = new CreateManyModuleExampleRepository(controllerInput.dbConnection, {
+      session,
+    })
     const updateModuleExampleRepository = new UpdateModuleExampleRepository(controllerInput.dbConnection, { session })
-    const updateManyModuleExampleRepository = new UpdateManyModuleExampleRepository(controllerInput.dbConnection, { session })
+    const updateManyModuleExampleRepository = new UpdateManyModuleExampleRepository(controllerInput.dbConnection, {
+      session,
+    })
     const deleteModuleExampleRepository = new DeleteModuleExampleRepository(controllerInput.dbConnection, { session })
-    const deleteManyModuleExampleRepository = new DeleteManyModuleExampleRepository(controllerInput.dbConnection, { session })
+    const deleteManyModuleExampleRepository = new DeleteManyModuleExampleRepository(controllerInput.dbConnection, {
+      session,
+    })
     const uniqueValidation = new UniqueValidation(controllerInput.dbConnection)
     // 3. handle business rules
     const responseCreate = await CreateModuleExampleUseCase.handle(controllerInput.httpRequest['body'].new, {
@@ -48,12 +54,15 @@ export const transactionModuleExampleController: IController = async (controller
     await session.commitTransaction()
     session.startTransaction()
     // 3.2. create many
-    const responseCreateMany = await CreateManyModuleExampleUseCase.handle(controllerInput.httpRequest['body'].createMany, {
-      createManyModuleExampleRepository,
-      schemaValidation,
-      uniqueValidation,
-      objClean,
-    })
+    const responseCreateMany = await CreateManyModuleExampleUseCase.handle(
+      controllerInput.httpRequest['body'].createMany,
+      {
+        createManyModuleExampleRepository,
+        schemaValidation,
+        uniqueValidation,
+        objClean,
+      },
+    )
     await session.commitTransaction()
     session.startTransaction()
     // 3.3. update

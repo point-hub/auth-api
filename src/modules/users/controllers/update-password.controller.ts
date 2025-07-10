@@ -5,6 +5,7 @@ import { schemaValidation } from '@/utils/validation'
 
 import { UpdateUserRepository } from '../repositories/update.repository'
 import { UpdatePasswordUserUseCase } from '../use-cases/update-password.use-case'
+import { updatePasswordValidation } from '../validations/update-password.validation'
 
 export const updatePasswordUserController: IController = async (controllerInput: IControllerInput) => {
   let session
@@ -21,7 +22,13 @@ export const updatePasswordUserController: IController = async (controllerInput:
         _id: controllerInput.httpRequest['params'].id,
         data: controllerInput.httpRequest['body'],
       },
-      { schemaValidation, updateUserRepository, hashPassword: Bun.password.hash, uniqueValidation },
+      {
+        schemaValidation,
+        updateUserRepository,
+        hashPassword: Bun.password.hash,
+        uniqueValidation,
+        updatePasswordValidation,
+      },
     )
     await session.commitTransaction()
     // 4. return response to client

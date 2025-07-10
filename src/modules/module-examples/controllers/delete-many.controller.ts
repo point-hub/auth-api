@@ -12,7 +12,9 @@ export const deleteManyModuleExampleController: IController = async (controllerI
     session = controllerInput.dbConnection.startSession()
     session.startTransaction()
     // 2. define repository
-    const deleteManyModuleExampleRepository = new DeleteManyModuleExampleRepository(controllerInput.dbConnection, { session })
+    const deleteManyModuleExampleRepository = new DeleteManyModuleExampleRepository(controllerInput.dbConnection, {
+      session,
+    })
     // 3. handle business rules
     const response = await DeleteManyModuleExampleUseCase.handle(
       { ids: controllerInput.httpRequest['body'].ids },

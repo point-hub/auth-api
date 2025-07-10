@@ -13,7 +13,9 @@ export const updateManyModuleExampleController: IController = async (controllerI
     session = controllerInput.dbConnection.startSession()
     session.startTransaction()
     // 2. define repository
-    const updateManyModuleExampleRepository = new UpdateManyModuleExampleRepository(controllerInput.dbConnection, { session })
+    const updateManyModuleExampleRepository = new UpdateManyModuleExampleRepository(controllerInput.dbConnection, {
+      session,
+    })
     // 3. handle business rules
     const response = await UpdateManyModuleExampleUseCase.handle(
       {

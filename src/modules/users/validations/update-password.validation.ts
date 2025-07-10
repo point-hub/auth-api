@@ -1,3 +1,3 @@
-export const updatePasswordValidation: IValidation = {
+export const updatePasswordValidation = {
   password: ['required', 'string'],
 }
