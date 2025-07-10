@@ -26,13 +26,13 @@ describe('create an example', async () => {
       nationality: { label: 'Indonesia', value: 'ID' },
     })
     await exampleFactory.create()
-
     // create new example with same name as above
     const data = {
       name: name,
+      age: faker.number.int({ min: 25, max: 99 }),
+      nationality: { label: 'Indonesia', value: 'ID' },
     }
     const response = await request(app).post('/v1/examples').send(data)
-
     // expect http response
     expect(response.statusCode).toEqual(422)
     // expect response json
@@ -44,7 +44,6 @@ describe('create an example', async () => {
     expect(response.body.errors).toStrictEqual({
       name: ['The name is exists.'],
     })
-
     // expect recorded data
     const exampleRecord = await DatabaseTestUtil.retrieve('examples', response.body.inserted_id)
     expect(exampleRecord).toBeNull()

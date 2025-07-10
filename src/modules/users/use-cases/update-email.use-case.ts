@@ -32,14 +32,11 @@ export class UpdateEmailUserUseCase {
     const userEntity = new UserEntity({ email: input.data.email })
     userEntity.trimmedEmail()
     // 3. validate unique
-    await deps.uniqueValidation.handle(
-      'users',
-      {
-        match: { trimmed_email: input.data.email },
-        replaceErrorAttribute: { trimmed_email: 'email' },
-      },
-      input._id,
-    )
+    await deps.uniqueValidation.handle('users', {
+      match: { trimmed_email: input.data.email },
+      replaceErrorAttribute: { trimmed_email: 'email' },
+      excludeId: input._id,
+    })
     // 4. database operation
     const response = await deps.updateUserRepository.handle(input._id, userEntity.data)
     // 5. output

@@ -32,10 +32,10 @@ export interface IOutput {
 
 export class UpdateExampleUseCase {
   static async handle(input: IInput, deps: IDeps): Promise<IOutput> {
-    // 1. validate unique
-    await deps.uniqueValidation.handle(collectionName, { match: { name: input.data.name } }, input._id)
-    // 2. validate schema
+    // 1. validate schema
     await deps.schemaValidation(input.data, updateValidation)
+    // 2. validate unique
+    await deps.uniqueValidation.handle(collectionName, { match: { name: input.data.name }, excludeId: input._id })
     // 3. define entity
     const exampleEntity = new ExampleEntity({
       name: input.data.name,

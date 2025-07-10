@@ -30,6 +30,8 @@ describe('create an module example', async () => {
     // create new module example with same name as above
     const data = {
       name: name,
+      age: faker.number.int({ min: 25, max: 99 }),
+      nationality: { label: 'Indonesia', value: 'ID' },
     }
     const response = await request(app).post('/v1/module-examples').send(data)
 

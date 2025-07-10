@@ -31,22 +31,16 @@ export interface IOutput {
 export class UpdateUserUseCase {
   static async handle(input: IInput, deps: IDeps): Promise<IOutput> {
     // 1. validate unique
-    await deps.uniqueValidation.handle(
-      'users',
-      {
-        match: { trimmed_username: input.data.username },
-        replaceErrorAttribute: { trimmed_username: 'username' },
-      },
-      input._id,
-    )
-    await deps.uniqueValidation.handle(
-      'users',
-      {
-        match: { trimmed_email: input.data.email },
-        replaceErrorAttribute: { trimmed_email: 'email' },
-      },
-      input._id,
-    )
+    await deps.uniqueValidation.handle('users', {
+      match: { trimmed_username: input.data.username },
+      replaceErrorAttribute: { trimmed_username: 'username' },
+      excludeId: input._id,
+    })
+    await deps.uniqueValidation.handle('users', {
+      match: { trimmed_email: input.data.email },
+      replaceErrorAttribute: { trimmed_email: 'email' },
+      excludeId: input._id,
+    })
     // 2. validate schema
     await deps.schemaValidation(input.data, updateValidation)
     // 3. define entity

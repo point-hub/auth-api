@@ -33,11 +33,14 @@ export class CreateManyModuleExampleUseCase {
   static async handle(input: IInput, deps: IDeps): Promise<IOutput> {
     // 1. validate schema
     await deps.schemaValidation({ module_examples: input.module_examples }, createManyValidation)
-    await deps.uniqueValidation.handle(collectionName, { match: input })
-    // 2. define entity
+    // 2. validate unique
+    const filters = input.module_examples.map((example) => ({
+      match: { name: example.name },
+    }))
+    await deps.uniqueValidation.handleMany(collectionName, filters)
+    // 3. define entity
     const entities = []
     for (const document of input.module_examples) {
-      // 3. validate unique
       const moduleExampleEntity = new ModuleExampleEntity({
         name: document.name,
         age: document.age,
