@@ -1,0 +1,8 @@
+export { createClientController } from './create.controller'
+export { createManyClientController } from './create-many.controller'
+export { deleteClientController } from './delete.controller'
+export { deleteManyClientController } from './delete-many.controller'
+export { retrieveClientController } from './retrieve.controller'
+export { retrieveAllClientController } from './retrieve-all.controller'
+export { updateClientController } from './update.controller'
+export { updateManyClientController } from './update-many.controller'

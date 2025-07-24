@@ -46,7 +46,7 @@ export class VerifyTokenUseCase {
       username: authUser.username as string,
       email: authUser.email as string,
       name: authUser.name as string,
-      role: authUser.name as string,
+      role: authUser.role as string,
     }
   }
 }

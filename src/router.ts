@@ -1,6 +1,7 @@
 import express, { type Express, type Request, type Response } from 'express'
 
 import type { IBaseAppInput } from './app'
+import clientRouter from './modules/clients/router'
 import exampleRouter from './modules/examples/router'
 import moduleExampleRouter from './modules/module-examples/router'
 import userRouter from './modules/users/router'
@@ -16,6 +17,7 @@ export default async function (baseRouterInput: IBaseAppInput) {
    */
   app.use('/v1/users', await userRouter(baseRouterInput))
   app.use('/v1/auth', await authRouter(baseRouterInput))
+  app.use('/v1/clients', await clientRouter(baseRouterInput))
   app.use('/v1/examples', await exampleRouter(baseRouterInput))
   app.use('/v1/module-examples', await moduleExampleRouter(baseRouterInput))
 

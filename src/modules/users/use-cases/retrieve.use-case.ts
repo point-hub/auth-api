@@ -13,6 +13,7 @@ export interface IOutput {
   name: string
   username: string
   email: string
+  role: string
   created_at: Date
   updated_at: Date
 }
@@ -27,6 +28,7 @@ export class RetrieveUserUseCase {
       name: response.name,
       username: response.username,
       email: response.email,
+      role: response.email,
       created_at: response.created_at,
       updated_at: response.updated_at,
     }

@@ -1,0 +1,8 @@
+export { CreateClientRepository } from './create.repository'
+export { CreateManyClientRepository } from './create-many.repository'
+export { DeleteClientRepository } from './delete.repository'
+export { DeleteManyClientRepository } from './delete-many.repository'
+export { RetrieveClientRepository } from './retrieve.repository'
+export { RetrieveAllClientRepository } from './retrieve-all.repository'
+export { UpdateClientRepository } from './update.repository'
+export { UpdateManyClientRepository } from './update-many.repository'
